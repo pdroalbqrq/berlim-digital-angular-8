@@ -16,7 +16,13 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  text-align: center;
+  text-emphasis: center;
+}
+
+.detail {
+  width: 100%;
+  min-height: calc(100vh - 50px);
+  text-emphasis: center;
 }
 
 .miniature {

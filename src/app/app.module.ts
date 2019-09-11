@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgScrollbarModule } from 'ngx-scrollbar';
+
 
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     MaterialModule,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
-    }),
-    NgScrollbarModule
+    })
+
   ],
   providers: [
     {
@@ -47,6 +47,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
       useClass: InterceptorService,
       multi: true
     }
+
   ],
   bootstrap: [AppComponent]
 })

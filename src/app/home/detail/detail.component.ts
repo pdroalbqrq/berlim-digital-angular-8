@@ -16,7 +16,7 @@ export class DetailComponent implements OnInit {
 
   faArrowLeft = faArrowLeft;
   training: Training;
-
+  config;
   constructor(private loadingService: LoadingService, private router: Router, private route: ActivatedRoute, private trainingService: TrainingService, private titleService: Title) { }
 
   ngOnInit() {
