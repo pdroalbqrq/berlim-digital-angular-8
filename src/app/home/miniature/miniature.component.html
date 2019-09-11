@@ -1,0 +1,11 @@
+<div class="miniature">
+  <div class="miniature__container" [ngStyle]="{'border-color':training?.status === 1 ? '#0290aa' : 'black' }">
+    <img
+      class="miniature__image"
+      [defaultImage]="training?.brand.lowQualityUrl"
+      [lazyLoad]="training?.brand.url"
+      alt=""
+    />
+  </div>
+  <h1 class="miniature__title">{{ training?.title }}</h1>
+</div>

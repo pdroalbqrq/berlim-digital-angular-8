@@ -1,0 +1,16 @@
+<mat-progress-bar color="accent" class="global-loading" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<header class="menu" >
+  <div>
+    <a mat-button class="menu__btn" [routerLink]="['']" routerLinkActive="menu__btn--active" [routerLinkActiveOptions]="{exact: true}">Berlim Digital</a>
+  </div>
+  <div>
+
+    <!-- <a mat-button class="menu__btn" [routerLink]="['/cursos']" routerLinkActive="menu__btn--active" [routerLinkActiveOptions]="{exact: true}">cursos</a> -->
+    <a mat-button class="menu__btn" [routerLink]="['/treinamentos']" routerLinkActive="menu__btn--active">treinamentos</a>
+
+  </div>
+  <div>
+    <a mat-button *ngIf="user" class="menu__btn" routerLinkActive="menu__btn--active" [routerLinkActiveOptions]="{exact: true}" (click)="logout()">sair</a>
+    <a mat-button *ngIf="!user" [routerLink]="['/indice/login']" class="menu__btn" routerLinkActive="menu__btn--active" [routerLinkActiveOptions]="{exact: true}" (click)="logout()">entrar</a>
+  </div>
+</header>

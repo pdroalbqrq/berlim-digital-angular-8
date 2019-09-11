@@ -1,0 +1,12 @@
+// MAT PROGRESS BAR
+.global-loading {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+// MAT SNACK BAR
+.center > .mat-simple-snackbar {
+  justify-content: center;
+}

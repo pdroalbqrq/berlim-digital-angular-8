@@ -1,0 +1,30 @@
+img {
+  width: 100%;
+}
+.training__title {
+  color: black;
+}
+
+p {
+  margin: 10px auto;
+  max-width: 700px;
+  width: 98%;
+  line-height: 1.54;
+}
+
+.loadbanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 18px;
+  padding: 10px;
+  background: black;
+  cursor: pointer;
+  color: white;
+}

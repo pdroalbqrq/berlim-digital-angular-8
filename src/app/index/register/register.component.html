@@ -1,0 +1,79 @@
+<div class="training" [defaultImage]="defaultImage" [lazyLoad]="image">
+  <div class="form__container">
+    <form [formGroup]="form" (ngSubmit)="registerSubmit()">
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="text"
+          formControlName="name"
+          placeholder="Nome Completo"
+        />
+      </div>
+      <app-error-msg [control]="form.get('name')" label="Nome"> </app-error-msg>
+
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="text"
+          formControlName="email"
+          placeholder="E-mail"
+        />
+      </div>
+      <app-error-msg [control]="form.get('email')" label="E-mail">
+      </app-error-msg>
+
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faPhone"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="text"
+          formControlName="number"
+          placeholder="DDD + Número"
+        />
+      </div>
+      <app-error-msg [control]="form.get('number')" label="Número">
+        </app-error-msg>
+
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faUserLock"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="password"
+          formControlName="password"
+          placeholder="Senha"
+        />
+      </div>
+      <app-error-msg [control]="form.get('password')" label="Senha">
+        </app-error-msg>
+
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faUserLock"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="password"
+          formControlName="passwordRepeat"
+          placeholder="Confirmar Senha"
+        />
+      </div>
+      <app-error-msg [control]="form.get('passwordRepeat')" label="Confirmar Senha">
+        </app-error-msg>
+
+      <button class="btn btn__submit" type="submit">
+        <span>Enviar </span>
+      </button>
+    </form>
+    <p [routerLink]="['#']"  class="link-form">Esqueceu a senha?</p>
+  </div>
+</div>

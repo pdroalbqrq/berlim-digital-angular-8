@@ -1,0 +1,22 @@
+.training{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 40px;
+}
+
+span{
+  font-weight: 900;
+  color:#0290AA;
+  text-transform: uppercase;
+}
+
+h1{
+  margin:15px 0px;
+}
+
+img{
+  max-width: 450px;
+  width: 95%;
+}

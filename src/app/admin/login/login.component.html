@@ -1,0 +1,40 @@
+<div class="training" [defaultImage]="defaultImage" [lazyLoad]="image">
+  <div class="form__container">
+    <form [formGroup]="formAdmin" (ngSubmit)="loginSubmit()">
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="text"
+          formControlName="email"
+          placeholder="E-mail"
+        />
+      </div>
+      <!-- <app-error-msg [control]="form.get('email')" label="E-mail">
+      </app-error-msg> -->
+
+      <div class="input__wrapper">
+        <div class="icon__input">
+          <fa-icon [icon]="faUserLock"></fa-icon>
+        </div>
+        <input
+          class="input"
+          type="password"
+          formControlName="password"
+          placeholder="Senha"
+        />
+      </div>
+      <!-- <app-error-msg [control]="form.get('password')" label="Senha">
+      </app-error-msg> -->
+
+      <button [disabled]="!formAdmin.valid" class="btn btn__submit" type="submit">
+        <span>Enviar </span>
+      </button>
+    </form>
+    <p [routerLink]="['/indice/cadastro']" class="link-form">
+      Não possui uma conta? Clique aqui
+    </p>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.menu__btn.menu__btn--active {
+  color: #0090aa;
+  &::before {
+    transform: scaleX(1);
+    visibility: visible;
+  }
+}
