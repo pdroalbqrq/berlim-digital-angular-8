@@ -1,3 +1,4 @@
+import { FileService } from './../../services/file.service';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
@@ -13,7 +14,7 @@ export class HeaderAdminComponent implements OnInit {
   loading;
   user;
 
-  constructor(private loginService: LoginService, private userService: UserService, private loadingService: LoadingService) { }
+  constructor(private loginService: LoginService, private userService: UserService, private loadingService: LoadingService, private fileService: FileService) { }
 
   ngOnInit() {
 
@@ -25,4 +26,20 @@ export class HeaderAdminComponent implements OnInit {
     this.loginService.logout('admin/login');
   }
 
+  uploadFile(file: any){
+    const selectedImage = file.target.files;
+
+    if (selectedImage && selectedImage[0]) {
+      console.log(selectedImage[0]);
+      const image = selectedImage[0];
+
+    const formData = new FormData();
+    formData.append('file', image);
+    this.fileService.postImage(formData);
+   }
+  }
+
 }
+
+
+

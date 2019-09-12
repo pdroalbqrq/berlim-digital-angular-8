@@ -15,7 +15,12 @@
       [routerLinkActiveOptions]="{ exact: true }"
       >Admin</a
     >
+    <input #file type="file" name="file" hidden (change)="uploadFile($event)" />
+    <a mat-button *ngIf="user" class="menu__btn" (click)="file.click()"
+      >Upload</a
+    >
   </div>
+
   <div>
     <a
       mat-button
