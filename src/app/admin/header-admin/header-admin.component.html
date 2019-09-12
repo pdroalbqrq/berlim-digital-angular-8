@@ -1,1 +1,49 @@
-<p>header-admin works!</p>
+<mat-progress-bar
+  color="accent"
+  class="global-loading"
+  mode="indeterminate"
+  *ngIf="loading"
+></mat-progress-bar>
+<header class="menu">
+  <div>
+    <a
+      mat-button
+      *ngIf="user"
+      class="menu__btn"
+      [routerLink]="['/admin']"
+      routerLinkActive="menu__btn--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Admin</a
+    >
+  </div>
+  <div>
+    <a
+      mat-button
+      *ngIf="user"
+      class="menu__btn"
+      [routerLink]="['/admin/treinamento']"
+      routerLinkActive="menu__btn--active"
+    >
+      cadastrar treinamentos</a
+    >
+  </div>
+  <div>
+    <a
+      mat-button
+      *ngIf="user"
+      class="menu__btn"
+      routerLinkActive="menu__btn--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="logout()"
+      >sair</a
+    >
+    <a
+      mat-button
+      *ngIf="!user"
+      class="menu__btn"
+      routerLinkActive="menu__btn--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >entrar</a
+    >
+  </div>
+</header>

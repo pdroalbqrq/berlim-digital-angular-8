@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
 
   logout() {
-    this.loginService.logout();
+    this.loginService.logout('login');
   }
 
 }

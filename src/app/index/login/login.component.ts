@@ -17,16 +17,16 @@ export class LoginComponent implements OnInit {
 
   form;
 
-  defaultImage = 'https://berlim-digital.s3.us-east-2.amazonaws.com/bg-home-lq.jpg';
-  image = 'https://berlim-digital.s3.us-east-2.amazonaws.com/bg-home.jpg';
+  defaultImage = 'https://berlim-digital.s3.amazonaws.com/1568318302412-low-quality-berlim-bg.png';
+  image = 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568318302412-berlim-bg.png';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
 
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(100)]],
-      password: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+      email: ['pedro@berlim.com', [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(100)]],
+      password: ['berlim123', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
     });
   }
 

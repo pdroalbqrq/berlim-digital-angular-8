@@ -1,7 +1,7 @@
 import { UserService } from './../../services/user.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { take, map } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
 
   }
 
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       take(1),
       map((isLogged) => {
         if (!isLogged) {
-          this.router.navigate(['/indice/login']);
+          this.router.navigate(['login']);
           return false;
         } else {
           return true;

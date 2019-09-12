@@ -2,10 +2,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppLayoutComponent } from './app-layout.component';
-import { AdminLayoutComponent } from './admin/admin-layout.component';
 import { AuthGuard } from './index/guards/auth.guard';
 import { AdminGuard } from './admin/guards/admin.guard';
 import { LoginComponent } from './admin/login/login.component';
+import { AdminLayoutComponent } from './admin-layout.component';
 
 
 
@@ -22,7 +22,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'indice',
+    path: '',
     component: AppLayoutComponent,
     children: [
       {

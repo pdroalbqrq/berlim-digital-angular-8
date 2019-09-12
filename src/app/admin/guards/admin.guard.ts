@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { take, map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { take, map } from 'rxjs/operators';
 })
 export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
         if (isLogged) {
           return true;
         } else {
-          this.router.navigate(['/admin/login']);
+          this.router.navigate(['admin/login']);
           return false;
         }
       })

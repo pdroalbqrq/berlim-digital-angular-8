@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,8 @@ export class LoginService {
 
   constructor(private http: HttpClient, private router: Router,
     private userService: UserService, private snackBar: MatSnackBar,
-    private loadingService: LoadingService) {
+    private loadingService: LoadingService,
+    private route: ActivatedRoute) {
 
     this.config.panelClass = ''
     this.config.duration = 5000
@@ -39,14 +40,14 @@ export class LoginService {
 
       }, (error => {
         this.loggedIn.next(false);
-        this.router.navigate(['/indice/login']);
+        this.router.navigate(['/login']);
         localStorage.removeItem('token');
         this.userService.changeUser(null);
 
       }))
     } catch (e) {
       this.loggedIn.next(false);
-      this.router.navigate(['/indice/login']);
+      this.router.navigate(['/login']);
       localStorage.removeItem('token');
       this.userService.changeUser(null);
     }
@@ -142,15 +143,14 @@ export class LoginService {
 
   }
 
-  async logout() {
-
+  async logout(rota: string) {
     await this.loadingService.changeLoading(true)
     await localStorage.removeItem('token');
     await this.loggedIn.next(false);
+    await this.adminLoggedIn.next(false);
     await this.userService.changeUser(null);
     await this.loadingService.changeLoading(false);
-    await this.router.navigate(['/indice/login']);
-
+    this.router.navigate([rota]);
   }
 
   tokenValidate(user: any) {
