@@ -23,6 +23,7 @@ export class DetailComponent implements OnInit {
     this.trainingService.getTraining(parseInt(this.route.snapshot.paramMap.get('id')))
       .subscribe(data => {
         this.training = data
+        console.log(data);
         this.titleService.setTitle(data.title + ' - Berlim Digital');
       },
         (error => {

@@ -91,9 +91,12 @@ export class LoginService {
 
   }
 
-  register(form): Observable<any> {
+  register(form) {
 
-    return this.http.post<any>(`${this.url}user/`, form)
+    return this.http.post<any>(`${this.url}user/`, form).subscribe(result => {
+      console.log(result)
+      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
+    }, (error => { console.log(error); this.snackBar.open(`${error.error.error}`, 'confirmar', this.config) }))
 
   }
 

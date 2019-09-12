@@ -2,20 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AdminComponent } from './admin.component';
-import { intersectionObserverPreset, LazyLoadImageModule } from 'ng-lazyload-image';
 import { HomeComponent } from './home/home.component';
+
+import { intersectionObserverPreset, LazyLoadImageModule } from 'ng-lazyload-image';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
 
 
 @NgModule({
   imports: [
-    CommonModule, AdminRoutingModule, NgScrollbarModule,
+    CommonModule, AdminRoutingModule,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
-    })
+    }),
+    PerfectScrollbarModule
   ],
-  declarations: [AdminComponent, HomeComponent],
+  declarations: [AdminComponent, HomeComponent, HeaderAdminComponent],
   providers: [
   ],
 

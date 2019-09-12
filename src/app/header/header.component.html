@@ -6,7 +6,7 @@
   <div>
 
     <!-- <a mat-button class="menu__btn" [routerLink]="['/cursos']" routerLinkActive="menu__btn--active" [routerLinkActiveOptions]="{exact: true}">cursos</a> -->
-    <a mat-button class="menu__btn" [routerLink]="['/treinamentos']" routerLinkActive="menu__btn--active">treinamentos</a>
+    <a mat-button class="menu__btn" *ngIf="user" [routerLink]="['/treinamentos']" routerLinkActive="menu__btn--active">treinamentos</a>
 
   </div>
   <div>

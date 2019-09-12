@@ -10,13 +10,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ErrorMsgComponent } from '../utils/error-msg/error-msg.component';
 
 
 @NgModule({
   imports: [
-    CommonModule, IndexRoutingModule, NgScrollbarModule,
+    CommonModule, IndexRoutingModule,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }), ReactiveFormsModule

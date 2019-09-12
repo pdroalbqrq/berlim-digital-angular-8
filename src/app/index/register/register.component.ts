@@ -44,9 +44,7 @@ export class RegisterComponent implements OnInit {
     delete value.passwordRepeat
     value.password = window.btoa(value.password);
 
-    this.loginService.register(value).subscribe(result => {
-      console.log(result);
-    }, (error => console.log(error)))
+    this.loginService.register(value)
   }
 
 }

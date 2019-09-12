@@ -18,9 +18,7 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
     return this.loginService.isAdminLoggedIn.pipe(
       take(1),
       map((isLogged) => {
-        console.log(isLogged);
         if (isLogged) {
-
           return true;
         } else {
           this.router.navigate(['/admin/login']);

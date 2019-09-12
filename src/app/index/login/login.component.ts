@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   loginSubmit() {
     const value = this.form.value;
-
     this.loginService.login(value)
     this.form.reset();
   }
