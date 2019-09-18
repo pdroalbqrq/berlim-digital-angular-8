@@ -11,9 +11,16 @@ export class FileService {
 
   constructor(private http: HttpClient) { }
 
-  postImage(image){
-    return this.http.post<Image>(`${this.url}image/`, image).subscribe(result => {
-      console.log(result)
-    });
+  postImage(image) {
+    return this.http.post<Image>(`${this.url}image/`, image);
+  }
+  getImages() {
+    return this.http.get<Image[]>(`${this.url}image`);
+  }
+  getProfileImages() {
+    return this.http.get<Image[]>(`${this.url}image/profile`);
+  }
+  getImage(id: number) {
+    return this.http.get<Image[]>(`${this.url}image/${id}`);
   }
 }

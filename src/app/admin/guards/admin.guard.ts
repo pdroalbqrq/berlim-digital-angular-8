@@ -9,7 +9,9 @@ import { take, map } from 'rxjs/operators';
 })
 export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -26,6 +28,7 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
         }
       })
     );
+
   }
   canActivateChild(
     next: ActivatedRouteSnapshot,

@@ -28,7 +28,7 @@
   }
 }
 
-.training {
+.container {
   .training__title {
     color: white;
     padding: 50px 0;
@@ -36,13 +36,11 @@
     text-transform: uppercase;
   }
 }
-.detail {
-  .detail__title {
-    color: rgb(0, 0, 0);
-    padding: 50px 0;
-    font-size: 50px;
-    text-transform: uppercase;
-  }
+.detail__title {
+  color: rgb(0, 0, 0);
+  padding: 50px 0;
+  font-size: 50px;
+  text-transform: uppercase;
 }
 
 .miniature__container {
@@ -64,7 +62,7 @@
 }
 .miniature__title {
   font-weight: bold;
-  color:white;
+  color: white;
 }
 
 .btn__submit {

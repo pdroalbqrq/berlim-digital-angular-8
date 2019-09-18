@@ -1,13 +1,14 @@
-
-
-app-error-msg {
-  width: 100%;
-}
-
 .training {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
+}
+
+.mat-spinner-avatar {
+  margin: 0 auto;
+  position: absolute;
+  top: 40px;
+  z-index: 999;
 }

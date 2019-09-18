@@ -1,7 +1,8 @@
-<perfect-scrollbar class="detail" [defaultImage]="defaultImage" [lazyLoad]="image" [config]="config">
+<perfect-scrollbar class="container" [defaultImage]="defaultImage" [lazyLoad]="image" [config]="config">
   <div (click)="goBack()" class="back">
     <fa-icon [icon]="faArrowLeft"></fa-icon>
   </div>
+
   <img
     *ngIf="training?.banner.lowQualityUrl"
     [defaultImage]="training?.banner.lowQualityUrl"

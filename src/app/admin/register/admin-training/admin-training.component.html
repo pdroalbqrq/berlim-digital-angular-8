@@ -1,0 +1,126 @@
+<perfect-scrollbar
+  class="container"
+  [defaultImage]="defaultImage"
+  [lazyLoad]="image"
+>
+  <div class="selectBanner">
+    <img
+      [defaultImage]="banner?.lowQualityUrl"
+      [lazyLoad]="banner?.url"
+      alt=""
+    />
+    <div class="select-image" (click)="openBannerDialog()">
+      <fa-icon [icon]="faUpload"></fa-icon>
+    </div>
+  </div>
+  <div class="roundedImage">
+    <img
+      [defaultImage]="images?.lowQualityUrl"
+      [lazyLoad]="images?.url"
+      alt=""
+    />
+    <div class="select-image" (click)="openDialog()">
+      <fa-icon [icon]="faUpload"></fa-icon>
+    </div>
+  </div>
+  <div class="form__container">
+    <form [formGroup]="formTraining" (ngSubmit)="trainingSubmit()">
+      <div class="input__wrapper">
+        <input
+          class="input"
+          type="text"
+          formControlName="title"
+          placeholder="Nome do treinamento"
+        />
+        <div class="icon__input">
+          <fa-icon [icon]="faUniversity"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg
+        [control]="formTraining.get('title')"
+        label="Nome do treinamento"
+      >
+      </app-error-msg>
+
+      <div class="input__wrapper input__wrapper--textarea">
+        <textarea
+          class="input"
+          row="10"
+          formControlName="description"
+          placeholder="Descrição"
+        ></textarea>
+        <div class="icon__input--textarea">
+          <fa-icon [icon]="faAlignLeft"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg
+        [control]="formTraining.get('description')"
+        label="Descrição"
+      >
+      </app-error-msg>
+
+      <div class="input__wrapper">
+        <input
+          class="input"
+          type="text"
+          formControlName="target"
+          placeholder="Público alvo"
+        />
+        <div class="icon__input">
+          <fa-icon [icon]="faCrosshairs"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg
+        [control]="formTraining.get('target')"
+        label="Público alvo"
+      >
+      </app-error-msg>
+
+      <div class="input__wrapper">
+        <input
+          class="input"
+          type="text"
+          formControlName="advisor"
+          placeholder="Orientador"
+        />
+        <div class="icon__input">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg [control]="formTraining.get('advisor')" label="Orientador">
+      </app-error-msg>
+
+      <div class="input__wrapper">
+        <input
+          class="input"
+          type="text"
+          formControlName="level"
+          placeholder="Nível"
+        />
+        <div class="icon__input">
+          <fa-icon [icon]="faLevelUpAlt"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg [control]="formTraining.get('level')" label="Nível">
+      </app-error-msg>
+
+      <div class="input__wrapper">
+        <input
+          class="input"
+          type="text"
+          formControlName="vacancies"
+          placeholder="Vagas"
+        />
+        <div class="icon__input">
+          <fa-icon [icon]="faUsers"></fa-icon>
+        </div>
+      </div>
+      <app-error-msg [control]="formTraining.get('vacancies')" label="Vagas">
+      </app-error-msg>
+
+      <button class="btn btn__submit" type="submit">
+        <span>Enviar </span>
+      </button>
+    </form>
+  </div>
+</perfect-scrollbar>

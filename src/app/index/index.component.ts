@@ -12,11 +12,9 @@ export class IndexComponent {
   constructor(private router: Router, private loginService: LoginService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loginService.isLoggedIn.subscribe(data => {
-      if (data) {
-        this.router.navigate(['/'])
-      }
-    })
+  //  if(this.loginService.loggedIn.asObservable()){
+  //   this.router.navigate(['/'])
+  //  };
   }
 
 }

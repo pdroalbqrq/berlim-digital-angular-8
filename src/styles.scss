@@ -1,11 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'assets/styles/main.scss';
+@import "assets/styles/main.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.ps__rail-y{
-  background:transparent!important;
-}
-.ps__thumb-y{
-  background:#183142!important;
-  border-radius: 3px!important;
-}

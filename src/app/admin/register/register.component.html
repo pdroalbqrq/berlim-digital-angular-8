@@ -1,0 +1,23 @@
+<div class="sidebar">
+  <a class="menu__btn"
+    [routerLink]="['/admin/cadastrar/treinamento']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Treinamento</a
+  >
+  <a class="menu__btn"
+    [routerLink]="['/admin/cadastrar/curso']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Curso</a
+  >
+  <a class="menu__btn"
+    [routerLink]="['/admin/cadastrar/orientador']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Orientador</a
+  >
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

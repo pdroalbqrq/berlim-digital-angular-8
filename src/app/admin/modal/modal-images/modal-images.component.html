@@ -1,0 +1,7 @@
+<perfect-scrollbar class="modal" mat-dialog-content>
+  <app-miniature
+    *ngFor="let i of images"
+    [image]="i"
+    (click)="selectedImage(i)"
+  ></app-miniature>
+</perfect-scrollbar>

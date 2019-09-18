@@ -19,6 +19,6 @@ import { GeneralModule } from '../utils/general/general.module'
   exports: [
   ],
   declarations: [HomeComponent, TrainingComponent, CoursesComponent, HomepageComponent, MiniatureComponent, DetailComponent],
-  providers: []
+  providers: [ ]
 })
 export class HomeModule { }

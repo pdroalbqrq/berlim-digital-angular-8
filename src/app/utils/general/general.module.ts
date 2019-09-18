@@ -14,13 +14,16 @@ import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-ima
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ErrorMsgComponent } from '../error-msg/error-msg.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ErrorMsgComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -36,13 +39,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     LazyLoadImageModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ErrorMsgComponent
   ],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  },
-  {
+  }, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
     multi: true

@@ -8,7 +8,6 @@ import { IndexComponent } from './index.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
-import { ErrorMsgComponent } from '../utils/error-msg/error-msg.component';
 import { GeneralModule } from '../utils/general/general.module';
 
 
@@ -16,7 +15,7 @@ import { GeneralModule } from '../utils/general/general.module';
   imports: [
     CommonModule, IndexRoutingModule, GeneralModule
   ],
-  declarations: [IndexComponent, RegisterComponent, LoginComponent, ErrorMsgComponent],
+  declarations: [IndexComponent, RegisterComponent, LoginComponent],
   providers: [
   ],
 

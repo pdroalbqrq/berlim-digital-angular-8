@@ -26,17 +26,16 @@ export class HeaderAdminComponent implements OnInit {
     this.loginService.logout('admin/login');
   }
 
-  uploadFile(file: any){
+  uploadFile(file: any) {
     const selectedImage = file.target.files;
 
     if (selectedImage && selectedImage[0]) {
-      console.log(selectedImage[0]);
       const image = selectedImage[0];
 
-    const formData = new FormData();
-    formData.append('file', image);
-    this.fileService.postImage(formData);
-   }
+      const formData = new FormData();
+      formData.append('file', image);
+      this.fileService.postImage(formData).subscribe(result => console.log(result), (e => console.log(e)));
+    }
   }
 
 }

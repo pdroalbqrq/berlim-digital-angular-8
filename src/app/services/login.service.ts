@@ -26,17 +26,17 @@ export class LoginService {
 
   }
 
-  private adminLoggedIn = new BehaviorSubject<boolean>(true);
-  private loggedIn = new BehaviorSubject<boolean>(true);
+  adminLoggedIn = new BehaviorSubject<boolean>(true);
+  loggedIn = new BehaviorSubject<boolean>(true);
 
   get isLoggedIn() {
 
-    try {
+    const token = localStorage.getItem('token');
 
-      this.tokenValidate(localStorage.getItem('token')).subscribe((data: any) => {
-
-        this.getUser(data.userId);
+    if (token) {
+      this.tokenValidate(token).subscribe((data: any) => {
         this.loggedIn.next(true)
+        this.getUser(data.userId);
 
       }, (error => {
         this.loggedIn.next(false);
@@ -45,11 +45,8 @@ export class LoginService {
         this.userService.changeUser(null);
 
       }))
-    } catch (e) {
-      this.loggedIn.next(false);
-      this.router.navigate(['/login']);
-      localStorage.removeItem('token');
-      this.userService.changeUser(null);
+    } else {
+      this.router.navigate(['login']);
     }
 
     return this.loggedIn.asObservable();
@@ -58,11 +55,11 @@ export class LoginService {
 
 
   get isAdminLoggedIn() {
+    const token = localStorage.getItem('token');
 
-    try {
 
-      this.tokenAdminValidate(localStorage.getItem('token')).subscribe((data: any) => {
-
+    if (token) {
+      this.tokenAdminValidate(token).subscribe((data: any) => {
         this.getUser(data.userId);
         this.adminLoggedIn.next(true)
 
@@ -73,12 +70,11 @@ export class LoginService {
         this.userService.changeUser(null);
 
       }))
-    } catch (e) {
+
+    } else {
       this.router.navigate(['/admin/login']);
-      this.adminLoggedIn.next(false);
-      localStorage.removeItem('token');
-      this.userService.changeUser(null);
     }
+
 
     return this.adminLoggedIn.asObservable();
 
@@ -92,9 +88,9 @@ export class LoginService {
 
   }
 
-  register(form) {
+  register(form, imageId) {
 
-    return this.http.post<any>(`${this.url}user/`, form).subscribe(result => {
+    return this.http.post<any>(`${this.url}user/${imageId}`, form).subscribe(result => {
       console.log(result)
       this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
     }, (error => { console.log(error); this.snackBar.open(`${error.error.error}`, 'confirmar', this.config) }))
@@ -105,12 +101,13 @@ export class LoginService {
 
     this.loadingService.changeLoading(true)
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}user/auth`, user).subscribe(result => {
+    return this.http.post<any>(`${this.url}auth/user`, user).subscribe(result => {
+      this.loadingService.changeLoading(false);
+      console.log(result);
       localStorage.setItem('token', result.token);
       this.loggedIn.next(true)
       this.userService.changeUser(result.user);
       this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
-      this.loadingService.changeLoading(false);
       this.router.navigate(['/']);
     }, (error => {
       {
@@ -126,13 +123,14 @@ export class LoginService {
 
     this.loadingService.changeLoading(true)
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}user/admin_auth`, user).subscribe(result => {
+    return this.http.post<any>(`${this.url}auth/admin`, user).subscribe(result => {
       localStorage.setItem('token', result.token);
       this.adminLoggedIn.next(true)
       this.userService.changeUser(result.user);
       this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
       this.loadingService.changeLoading(false);
       this.router.navigate(['/admin']);
+      console.log(result);
     }, (error => {
       {
         console.log(error);
@@ -154,12 +152,16 @@ export class LoginService {
   }
 
   tokenValidate(user: any) {
+
     return this.http.get<any>(`${this.url}token`, user);
+
 
   }
 
   tokenAdminValidate(user: any) {
+
     return this.http.get<any>(`${this.url}token/admin`, user);
+
   }
 
 

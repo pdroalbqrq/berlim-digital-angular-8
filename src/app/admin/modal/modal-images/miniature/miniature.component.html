@@ -1,0 +1,4 @@
+<div class="miniature-image" [title]="image.name">
+  <mat-spinner class="mat-spinner-avatar" *ngIf="!image.url"></mat-spinner>
+  <img [defaultImage]="image.lowQualityUrl" [lazyLoad]="image.url" alt="" />
+</div>

@@ -1,5 +1,5 @@
 <perfect-scrollbar
-  class="training"
+  class="container"
   [defaultImage]="defaultImage"
   [lazyLoad]="image"
 >
@@ -8,7 +8,7 @@
   <div class="miniatures__wrapper">
     <div *ngFor="let t of training">
       <app-miniature
-        [routerLink]="['/treinamentos', t.id, t.title]"
+        [routerLink]="['/treinamentos', t.id, t.url]"
         [training]="t"
       ></app-miniature>
     </div>

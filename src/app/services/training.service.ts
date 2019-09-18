@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import Training from '../models/training-model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,13 @@ export class TrainingService {
 
   url = 'http://localhost:3000/v1/';
   currentTraining;
+  config = new MatSnackBarConfig();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+    this.config.panelClass = ''
+    this.config.duration = 5000
+
+  }
 
   get training(): Training {
     return this.currentTraining;
@@ -33,7 +39,9 @@ export class TrainingService {
     );
   }
 
-  createTraining(bannerId, brandId, training) {
-    return this.http.post<Training>(`${this.url}training/${bannerId}/${brandId}`, training);
+  createTraining(brandId, bannerId, training) {
+    return this.http.post<Training>(`${this.url}training/${brandId}/${bannerId}`, training).subscribe(data => {
+      this.snackBar.open(`Treinamento criado com sucesso`, 'confirmar', this.config)
+    },(e => this.snackBar.open(`Ocorreu um erro, tente novamente mais tarde`, 'confirmar', this.config)))
   }
 }

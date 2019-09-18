@@ -1,11 +1,13 @@
-<div class="miniature">
-  <div class="miniature__container" [ngStyle]="{'border-color':training?.status === 1 ? '#0290aa' : 'black' }">
+<div class="miniature" [title]="training?.title">
+  <div class="miniature__container">
     <img
+      *ngIf="training?.brand.url"
       class="miniature__image"
       [defaultImage]="training?.brand.lowQualityUrl"
       [lazyLoad]="training?.brand.url"
-      alt=""
+      [alt]="training?.title"
     />
+    <mat-spinner *ngIf="!training?.brand.url"></mat-spinner>
   </div>
   <h1 class="miniature__title">{{ training?.title }}</h1>
 </div>

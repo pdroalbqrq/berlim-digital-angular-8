@@ -1,0 +1,15 @@
+.ps-content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
+}
+.ps__rail-y {
+  background: transparent !important;
+}
+.ps__thumb-y {
+  background: #000 !important;
+  outline: none !important;
+  border-radius: 3px !important;
+}

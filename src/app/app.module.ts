@@ -34,10 +34,7 @@ import { GeneralModule } from './utils/general/general.module';
     GeneralModule
 
   ],
-  providers: [
-
-
-  ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

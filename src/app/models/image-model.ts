@@ -1,14 +1,15 @@
 
 
 export default class Image {
-  name: string;
-  size: number;
-  type: string;
-  key: string;
+  id?: number;
+  name?: string;
+  size?: number;
+  type?: string;
+  key?: string;
   url: string;
   lowQualityUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 

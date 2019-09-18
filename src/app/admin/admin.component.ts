@@ -9,8 +9,14 @@ import { LoginService } from '../services/login.service';
 })
 export class AdminComponent {
 
-  constructor(private router: Router, private loginService: LoginService, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // this.userService.currentUser.subscribe((user: any) => {
+    //   if (user.role = "User") {
+    //     this.router.navigate(['admin/login'])
+    //   }
+    // })
+  }
 
 }
