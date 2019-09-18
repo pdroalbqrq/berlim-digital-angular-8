@@ -19,14 +19,17 @@
         <input
           class="input"
           type="text"
-          formControlName="title"
+          formControlName="name"
           placeholder="Nome do orientador"
         />
         <div class="icon__input">
           <fa-icon [icon]="faUniversity"></fa-icon>
         </div>
       </div>
-      <app-error-msg [control]="formAdvisor.get('title')" label="Nome do orientador">
+      <app-error-msg
+        [control]="formAdvisor.get('name')"
+        label="Nome do orientador"
+      >
       </app-error-msg>
 
       <div class="input__wrapper">
@@ -50,56 +53,28 @@
         <input
           class="input"
           type="text"
-          formControlName="target"
-          placeholder="Público alvo"
+          formControlName="email"
+          placeholder="E-mail"
         />
         <div class="icon__input">
           <fa-icon [icon]="faCrosshairs"></fa-icon>
         </div>
       </div>
-      <app-error-msg [control]="formAdvisor.get('target')" label="Público alvo">
+      <app-error-msg [control]="formAdvisor.get('email')" label="E-mail">
       </app-error-msg>
 
       <div class="input__wrapper">
         <input
           class="input"
           type="text"
-          formControlName="advisor"
-          placeholder="Orientador"
+          formControlName="Number"
+          placeholder="Número"
         />
         <div class="icon__input">
           <fa-icon [icon]="faUser"></fa-icon>
         </div>
       </div>
-      <app-error-msg [control]="formAdvisor.get('advisor')" label="Orientador">
-      </app-error-msg>
-
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="level"
-          placeholder="Nível"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faLevelUpAlt"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formAdvisor.get('level')" label="Nível">
-      </app-error-msg>
-
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="vacancies"
-          placeholder="Vagas"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faUsers"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formAdvisor.get('vacancies')" label="Vagas">
+      <app-error-msg [control]="formAdvisor.get('number')" label="Número">
       </app-error-msg>
 
       <button class="btn btn__submit" type="submit">

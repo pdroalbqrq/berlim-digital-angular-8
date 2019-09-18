@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import Image from '../models/image-model';
+import { HttpClient } from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FileService {
+export class AdvisorService {
 
   url = 'http://localhost:3000/v1/'
 

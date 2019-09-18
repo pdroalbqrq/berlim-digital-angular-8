@@ -4,6 +4,7 @@ import { faUser, faCrosshairs, faAlignLeft, faUpload, faLevelUpAlt, faUsers, faU
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Image from '../../../models/image-model'
 import { ModalImagesComponent } from '../../modal/modal-images/modal-images.component';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-admin-advisor',
@@ -21,18 +22,17 @@ export class AdminAdvisorComponent implements OnInit {
   faUpload = faUpload;
   pic;
 
-  images: Image = {
-    url: 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568662779035-pineapple.png', lowQualityUrl: 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568662779035-low-quality-pineapple.png'
-  };
+  images: Image;
 
   defaultImage = 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568829881292-low-quality-bg-ead.jpg';
   image = 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568829881292-bg-ead.jpg';
 
   formAdvisor;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private fileService: FileService) { }
 
   ngOnInit() {
+    this.getAvatars()
     this.formAdvisor = this.formBuilder.group({
       title: [null, [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(100)]],
       description: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(600)]],
@@ -58,6 +58,13 @@ export class AdminAdvisorComponent implements OnInit {
   advisorSubmit() {
     const value = this.formAdvisor.value;
     console.log(value);
+  }
+
+  getAvatars() {
+    this.fileService.getImage(2).subscribe((data: Image) => {
+      this.images = data;
+      console.log(data);
+    });
   }
 
 }

@@ -78,7 +78,6 @@ export class AdminTrainingComponent implements OnInit {
     console.log(this.images);
     console.log(this.banner);
     this.trainingService.createTraining(this.images.id, this.banner.id, value)
-
   }
 
 }
