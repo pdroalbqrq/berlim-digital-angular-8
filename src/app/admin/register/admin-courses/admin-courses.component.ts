@@ -4,6 +4,7 @@ import { faUser, faCrosshairs, faAlignLeft, faUpload, faLevelUpAlt, faUsers, faU
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Image from '../../../models/image-model'
 import { ModalImagesComponent } from '../../modal/modal-images/modal-images.component';
+import { AdvisorService } from 'src/app/services/advisor.service';
 
 @Component({
   selector: 'app-admin-courses',
@@ -19,6 +20,7 @@ export class AdminCoursesComponent implements OnInit {
   faAlignLeft = faAlignLeft;
   faUniversity = faUniversity;
   faUpload = faUpload;
+  advisors = [];
   pic;
 
   images: Image = {
@@ -35,9 +37,13 @@ export class AdminCoursesComponent implements OnInit {
   formCourses;
 
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private advisorService: AdvisorService) { }
 
   ngOnInit() {
+    this.advisorService.getAdvisors().subscribe(data => {
+      this.advisors = data
+      console.log(data);
+    });
     this.formCourses = this.formBuilder.group({
       title: [null, [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(100)]],
       description: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(600)]],
@@ -68,7 +74,6 @@ export class AdminCoursesComponent implements OnInit {
       this.banner = result;
     })
   }
-
 
   coursesSubmit() {
     const value = this.formCourses.value;

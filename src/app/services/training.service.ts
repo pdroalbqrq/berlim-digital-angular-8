@@ -39,7 +39,7 @@ export class TrainingService {
     );
   }
 
-  createTraining(brandId, bannerId, training) {
+  createTraining(brandId, bannerId, advisorId, training) {
     return this.http.post<Training>(`${this.url}training/${brandId}/${bannerId}`, training).subscribe(data => {
       this.snackBar.open(`Treinamento criado com sucesso`, 'confirmar', this.config)
     },(e => this.snackBar.open(`Ocorreu um erro, tente novamente mais tarde`, 'confirmar', this.config)))

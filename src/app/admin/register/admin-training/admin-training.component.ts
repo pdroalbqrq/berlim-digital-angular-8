@@ -1,3 +1,4 @@
+import { AdvisorService } from './../../../services/advisor.service';
 import { TrainingService } from './../../../services/training.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -13,9 +14,11 @@ import { ModalImagesComponent } from '../../modal/modal-images/modal-images.comp
 })
 export class AdminTrainingComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private trainingService: TrainingService) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
+    private trainingService: TrainingService, private advisorService: AdvisorService) { }
 
   showModal = false;
+  advisors = [];
   faUser = faUser;
   faUsers = faUsers;
   faLevelUpAlt = faLevelUpAlt;
@@ -40,6 +43,10 @@ export class AdminTrainingComponent implements OnInit {
   formTraining;
 
   ngOnInit() {
+    this.advisorService.getAdvisors().subscribe(data => {
+      this.advisors = data
+      console.log(data);
+    });
     this.formTraining = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
       description: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(600)]],
@@ -74,10 +81,7 @@ export class AdminTrainingComponent implements OnInit {
 
   trainingSubmit() {
     const value = this.formTraining.value;
-    console.log(value);
-    console.log(this.images);
-    console.log(this.banner);
-    this.trainingService.createTraining(this.images.id, this.banner.id, value)
+    this.trainingService.createTraining(this.images.id, this.banner.id, value.advisor, value)
   }
 
 }

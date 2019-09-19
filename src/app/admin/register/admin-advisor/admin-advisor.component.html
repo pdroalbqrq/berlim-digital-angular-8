@@ -32,14 +32,14 @@
       >
       </app-error-msg>
 
-      <div class="input__wrapper">
-        <input
+      <div class="input__wrapper input__wrapper--textarea">
+        <textarea
           class="input"
-          type="text"
+          row="10"
           formControlName="description"
           placeholder="Descrição"
-        />
-        <div class="icon__input">
+        ></textarea>
+        <div class="icon__input--textarea">
           <fa-icon [icon]="faAlignLeft"></fa-icon>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <input
           class="input"
           type="text"
-          formControlName="Number"
+          formControlName="number"
           placeholder="Número"
         />
         <div class="icon__input">

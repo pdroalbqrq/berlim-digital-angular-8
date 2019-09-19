@@ -77,13 +77,28 @@
       </app-error-msg>
 
       <div class="input__wrapper">
-        <input
+        <!-- <input
           class="input"
           type="text"
           formControlName="advisor"
           placeholder="Orientador"
-        />
-        <div class="icon__input">
+        /> -->
+        <mat-form-field>
+          <mat-label>Orientador</mat-label>
+          <mat-select formControlName="advisor">
+            <mat-option *ngFor="let advisor of advisors" [value]="advisor.id">
+              <div class="select-advisor">
+                <img
+                  [defaultImage]="advisor.avatar.lowQualityUrl"
+                  [lazyLoad]="advisor.avatar.url"
+                  alt=""
+                />
+                {{ advisor.name }}
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="icon__input--advisor">
           <fa-icon [icon]="faUser"></fa-icon>
         </div>
       </div>

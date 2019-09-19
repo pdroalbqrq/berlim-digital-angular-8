@@ -75,6 +75,15 @@ app-error-msg {
     margin: 0 !important;
   }
 }
+.icon__input--advisor {
+  min-width: 40px;
+  background: transparent;
+  transition: 0.2s;
+  fa-icon {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
 textarea.input {
   width: 95%;
   max-width: 300px;

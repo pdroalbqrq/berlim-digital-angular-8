@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
+import Advisor from '../models/advisor-model'
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,13 @@ export class AdvisorService {
 
   constructor(private http: HttpClient) { }
 
-  postImage(image) {
-    return this.http.post<Image>(`${this.url}image/`, image);
+  postAdvisor(imageId, advisor) {
+    return this.http.post<Advisor>(`${this.url}advisor/${imageId}`, advisor);
   }
-  getImages() {
-    return this.http.get<Image[]>(`${this.url}image`);
-  }
-  getProfileImages() {
-    return this.http.get<Image[]>(`${this.url}image/profile`);
+  getAdvisors() {
+    return this.http.get<Advisor[]>(`${this.url}advisor`);
   }
   getImage(id: number) {
-    return this.http.get<Image>(`${this.url}image/${id}`);
+    return this.http.get<Advisor>(`${this.url}advisor/${id}`);
   }
 }

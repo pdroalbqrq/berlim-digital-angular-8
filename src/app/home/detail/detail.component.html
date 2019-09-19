@@ -1,4 +1,9 @@
-<perfect-scrollbar class="container" [defaultImage]="defaultImage" [lazyLoad]="image" [config]="config">
+<perfect-scrollbar
+  class="container"
+  [defaultImage]="defaultImage"
+  [lazyLoad]="image"
+  [config]="config"
+>
   <div (click)="goBack()" class="back">
     <fa-icon [icon]="faArrowLeft"></fa-icon>
   </div>
@@ -15,18 +20,15 @@
 
   <h1 class="detail__title">{{ training?.title }}</h1>
   <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
-  <p>{{ training?.description }}</p>
+
+  <h1 style="margin-top: 50px;">Orientador:</h1>
+  <div class="advisor-detail">
+    <img
+      [defaultImage]="training?.advisor.avatar.lowQ"
+      [lazyLoad]="training?.advisor.avatar.url"
+      alt=""
+    />
+    <h1>{{ training?.advisor.name }}</h1>
+  </div>
+  <p>{{ training?.advisor.description }}</p>
 </perfect-scrollbar>
