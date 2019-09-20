@@ -4,94 +4,116 @@
   [lazyLoad]="image"
 >
   <div class="roundedImage">
-      <mat-spinner class="mat-spinner-avatar" *ngIf="!avatar"></mat-spinner>
+    <mat-spinner class="mat-spinner-avatar" *ngIf="!avatar"></mat-spinner>
     <img
       [defaultImage]="avatar?.lowQualityUrl"
       [lazyLoad]="avatar?.url"
       alt=""
     />
     <div class="select-image" (click)="getUserImage()">
-      <fa-icon [icon]="faRedo"></fa-icon>
+      <mat-icon>
+        autorenew
+      </mat-icon>
     </div>
   </div>
+
   <div class="form__container">
     <form [formGroup]="form" (ngSubmit)="registerSubmit()">
-      <div class="input__wrapper">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="name"
-          placeholder="Nome Completo"
+          placeholder="ex: Berlim Digital"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUser"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('name')" label="Nome"> </app-error-msg>
+        <mat-icon matSuffix>account_circle</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg [control]="form.get('name')" label="Nome">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="email"
-          placeholder="E-mail"
+          placeholder="ex: berlim@digital.com"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faEnvelope"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('email')" label="E-mail">
-      </app-error-msg>
+        <mat-icon matSuffix>email</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg [control]="form.get('email')" label="E-mail">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="number"
-          placeholder="DDD + Número"
+          placeholder="ex: Berlim Digital"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faPhone"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('number')" label="Número">
-      </app-error-msg>
+        <mat-icon matSuffix>phone</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg [control]="form.get('number')" label="Número">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
         <input
-          class="input"
-          type="password"
+          matInput
+          placeholder="Digite sua senha"
           formControlName="password"
-          placeholder="Senha"
+          [type]="hide ? 'password' : 'text'"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUserLock"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('password')" label="Senha">
-      </app-error-msg>
 
-      <div class="input__wrapper">
+        <mat-icon
+          mat-icon-button
+          matSuffix
+          style="cursor: pointer"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          >{{ hide ? "visibility_off" : "visibility" }}</mat-icon
+        >
+        <mat-hint>
+          <app-error-msg [control]="form.get('password')" label="Senha">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmar Senha</mat-label>
         <input
-          class="input"
+          matInput
           type="password"
           formControlName="passwordRepeat"
-          placeholder="Confirmar Senha"
+          placeholder="********"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUserLock"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg
-        [control]="form.get('passwordRepeat')"
-        label="Confirmar Senha"
-      >
-      </app-error-msg>
+        <mat-icon matSuffix>lock</mat-icon>
 
-      <button class="btn btn__submit" type="submit">
-        <span>Enviar </span>
+        <mat-hint>
+          <app-error-msg
+            [control]="form.get('passwordRepeat')"
+            label="Confirmar senha"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Enviar
       </button>
     </form>
-    <p [routerLink]="['#']" class="link-form">Esqueceu a senha?</p>
+    <p class="link-form">
+      Já possui uma Conta? <a [routerLink]="['login']">Clique aqui</a>
+    </p>
   </div>
 </perfect-scrollbar>

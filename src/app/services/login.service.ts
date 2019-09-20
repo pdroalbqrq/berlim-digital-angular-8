@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from './user.service';
 import User from '../models/user-model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class LoginService {
 
   constructor(private http: HttpClient, private router: Router,
     private userService: UserService, private snackBar: MatSnackBar,
-    private loadingService: LoadingService,
     private route: ActivatedRoute) {
 
   }
@@ -86,10 +84,11 @@ export class LoginService {
 
   register(form, imageId) {
 
-    return this.http.post<any>(`${this.url}user/${imageId}`, form).subscribe(result => {
-      console.log(result)
-      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar')
-    }, (error => { console.log(error); this.snackBar.open(`${error.error.error}`, 'confirmar') }))
+    return this.http.post<any>(`${this.url}user/${imageId}`, form)
+      .pipe(map(result => {
+        return result
+      }))
+
 
   }
 
@@ -118,12 +117,10 @@ export class LoginService {
   }
 
   async logout(rota: string) {
-    await this.loadingService.changeLoading(true)
     await localStorage.removeItem('token');
     await this.loggedIn.next(false);
     await this.adminLoggedIn.next(false);
     await this.userService.changeUser(null);
-    await this.loadingService.changeLoading(false);
     this.router.navigate([rota]);
   }
 

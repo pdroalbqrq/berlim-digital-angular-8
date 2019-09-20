@@ -10,10 +10,11 @@
       alt=""
     />
     <div class="select-image" (click)="openBannerDialog()">
-      <fa-icon [icon]="faUpload"></fa-icon>
+      <mat-icon>
+        autorenew
+      </mat-icon>
     </div>
   </div>
-
   <div class="roundedImage">
     <img
       [defaultImage]="images?.lowQualityUrl"
@@ -21,116 +22,107 @@
       alt=""
     />
     <div class="select-image" (click)="openDialog()">
-      <fa-icon [icon]="faUpload"></fa-icon>
+      <mat-icon>
+        autorenew
+      </mat-icon>
     </div>
   </div>
 
   <div class="form__container">
-    <form [formGroup]="formCourses" (ngSubmit)="coursesSubmit()">
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="title"
-          placeholder="Nome do curso"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faUniversity"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formCourses.get('title')" label="Nome do curso">
-      </app-error-msg>
+    <form [formGroup]="formCourses" (ngSubmit)="trainingSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do treinamento</mat-label>
+        <input matInput formControlName="title" />
+        <mat-icon matSuffix>school</mat-icon>
 
-      <div class="input__wrapper input__wrapper--textarea">
-        <textarea
-          class="input"
-          row="10"
-          formControlName="description"
-          placeholder="Descrição"
-        ></textarea>
-        <div class="icon__input--textarea">
-          <fa-icon [icon]="faAlignLeft"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg
-        [control]="formCourses.get('description')"
-        label="Descrição"
-      >
-      </app-error-msg>
+        <mat-hint>
+          <app-error-msg
+            [control]="formCourses.get('title')"
+            label="Nome do treinamento"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
 
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="target"
-          placeholder="Público alvo"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faCrosshairs"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formCourses.get('target')" label="Público alvo">
-      </app-error-msg>
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-icon matSuffix>library_books</mat-icon>
 
-      <div class="input__wrapper">
-        <!-- <input
-            class="input"
-            type="text"
-            formControlName="advisor"
-            placeholder="Orientador"
-          /> -->
-        <mat-form-field>
-          <mat-label>Orientador</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let advisor of advisors" [value]="advisor.id">
-              <div class="select-advisor">
-                <img
-                  [defaultImage]="advisor.avatar.lowQualityUrl"
-                  [lazyLoad]="advisor.avatar.url"
-                  alt=""
-                />
-                {{ advisor.name }}
-              </div>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="icon__input--advisor">
-          <fa-icon [icon]="faUser"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formCourses.get('advisor')" label="Orientador">
-      </app-error-msg>
+        <mat-hint>
+          <app-error-msg
+            [control]="formCourses.get('description')"
+            label="Descrição"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
 
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="level"
-          placeholder="Nível"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faLevelUpAlt"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formCourses.get('level')" label="Nível">
-      </app-error-msg>
+      <mat-form-field appearance="outline">
+        <mat-label>Público alvo</mat-label>
+        <textarea matInput formControlName="target"> </textarea>
+        <mat-icon matSuffix>sentiment_satisfied_alt</mat-icon>
 
-      <div class="input__wrapper">
-        <input
-          class="input"
-          type="text"
-          formControlName="vacancies"
-          placeholder="Vagas"
-        />
-        <div class="icon__input">
-          <fa-icon [icon]="faUsers"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formCourses.get('vacancies')" label="Vagas">
-      </app-error-msg>
+        <mat-hint>
+          <app-error-msg
+            [control]="formCourses.get('target')"
+            label="Público alvo"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
 
-      <button class="btn btn__submit" type="submit">
-        <span>Enviar </span>
+      <mat-form-field appearance="outline">
+        <mat-label>Orientador</mat-label>
+
+        <mat-select formControlName="advisor">
+          <mat-option *ngFor="let advisor of advisors" [value]="advisor.id">
+            <div class="select-advisor">
+              <img
+                [defaultImage]="advisor.avatar.lowQualityUrl"
+                [lazyLoad]="advisor.avatar.url"
+                alt=""
+              />
+              {{ advisor.name }}
+            </div>
+          </mat-option>
+        </mat-select>
+
+        <mat-icon matSuffix>account_circle</mat-icon>
+
+        <mat-hint>
+          <app-error-msg
+            [control]="formCourses.get('advisor')"
+            label="Orientador"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nível</mat-label>
+        <input matInput formControlName="level" />
+        <mat-icon matSuffix>trending_up</mat-icon>
+
+        <mat-hint>
+          <app-error-msg [control]="formCourses.get('level')" label="Nível">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Vagas</mat-label>
+        <input matInput formControlName="vacancies" />
+        <mat-icon matSuffix>people</mat-icon>
+
+        <mat-hint>
+          <app-error-msg [control]="formCourses.get('vacancies')" label="Vagas">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" disabled type="submit">
+        Enviar
       </button>
     </form>
   </div>

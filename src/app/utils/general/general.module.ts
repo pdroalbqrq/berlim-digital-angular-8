@@ -13,7 +13,6 @@ import { InterceptorService } from '../../services/interceptor.service';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ErrorMsgComponent } from '../error-msg/error-msg.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
@@ -32,14 +31,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
-    FontAwesomeModule,
     ReactiveFormsModule
   ],
   exports: [
     MaterialModule,
     PerfectScrollbarModule,
     LazyLoadImageModule,
-    FontAwesomeModule,
     ReactiveFormsModule,
     ErrorMsgComponent
   ],

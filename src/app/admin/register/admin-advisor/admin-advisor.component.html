@@ -10,75 +10,79 @@
       alt=""
     />
     <div class="select-image" (click)="openDialog()">
-      <fa-icon [icon]="faUpload"></fa-icon>
+      <mat-icon>
+        autorenew
+      </mat-icon>
     </div>
   </div>
   <div class="form__container">
     <form [formGroup]="formAdvisor" (ngSubmit)="advisorSubmit()">
-      <div class="input__wrapper">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do orientador</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="name"
-          placeholder="Nome do orientador"
+          placeholder="ex: Berlim Digital"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUniversity"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg
-        [control]="formAdvisor.get('name')"
-        label="Nome do orientador"
-      >
-      </app-error-msg>
+        <mat-icon matSuffix>account_circle</mat-icon>
 
-      <div class="input__wrapper input__wrapper--textarea">
-        <textarea
-          class="input"
-          row="10"
+        <mat-hint>
+          <app-error-msg [control]="formAdvisor.get('name')" label="Nome">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input
+          matInput
           formControlName="description"
-          placeholder="Descrição"
-        ></textarea>
-        <div class="icon__input--textarea">
-          <fa-icon [icon]="faAlignLeft"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg
-        [control]="formAdvisor.get('description')"
-        label="Descrição"
-      >
-      </app-error-msg>
+          placeholder="ex: Uma explicação resumida do orientador"
+        />
+        <mat-icon matSuffix>assignment</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg
+            [control]="formAdvisor.get('description')"
+            label="Descrição"
+          >
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="email"
-          placeholder="E-mail"
+          placeholder="ex: berlim@digital.com"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faCrosshairs"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formAdvisor.get('email')" label="E-mail">
-      </app-error-msg>
+        <mat-icon matSuffix>email</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg [control]="formAdvisor.get('email')" label="E-mail">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="number"
-          placeholder="Número"
+          placeholder="ex: (81)912345678"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUser"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="formAdvisor.get('number')" label="Número">
-      </app-error-msg>
+        <mat-icon matSuffix>phone</mat-icon>
 
-      <button class="btn btn__submit" type="submit">
-        <span>Enviar </span>
+        <mat-hint>
+          <app-error-msg [control]="formAdvisor.get('number')" label="Número">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Enviar
       </button>
     </form>
   </div>

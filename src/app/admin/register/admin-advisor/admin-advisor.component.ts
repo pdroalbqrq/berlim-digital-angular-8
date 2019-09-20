@@ -1,7 +1,6 @@
 import { AdvisorService } from './../../../services/advisor.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
-import { faUser, faCrosshairs, faAlignLeft, faUpload, faLevelUpAlt, faUsers, faUniversity } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Image from '../../../models/image-model'
 import { ModalImagesComponent } from '../../modal/modal-images/modal-images.component';
@@ -14,13 +13,6 @@ import { FileService } from 'src/app/services/file.service';
 })
 export class AdminAdvisorComponent implements OnInit {
 
-  faUser = faUser;
-  faUsers = faUsers;
-  faLevelUpAlt = faLevelUpAlt;
-  faCrosshairs = faCrosshairs;
-  faAlignLeft = faAlignLeft;
-  faUniversity = faUniversity;
-  faUpload = faUpload;
   pic;
 
   images: Image;
