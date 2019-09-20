@@ -13,16 +13,12 @@ import { LoadingService } from './loading.service';
 })
 export class LoginService {
 
-  config = new MatSnackBarConfig();
   url = 'http://localhost:3000/v1/'
 
   constructor(private http: HttpClient, private router: Router,
     private userService: UserService, private snackBar: MatSnackBar,
     private loadingService: LoadingService,
     private route: ActivatedRoute) {
-
-    this.config.panelClass = ''
-    this.config.duration = 5000
 
   }
 
@@ -92,8 +88,8 @@ export class LoginService {
 
     return this.http.post<any>(`${this.url}user/${imageId}`, form).subscribe(result => {
       console.log(result)
-      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
-    }, (error => { console.log(error); this.snackBar.open(`${error.error.error}`, 'confirmar', this.config) }))
+      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar')
+    }, (error => { console.log(error); this.snackBar.open(`${error.error.error}`, 'confirmar') }))
 
   }
 
