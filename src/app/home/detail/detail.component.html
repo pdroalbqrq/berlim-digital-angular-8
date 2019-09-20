@@ -4,6 +4,9 @@
   [lazyLoad]="image"
   [config]="config"
 >
+  <div class="loading-detail" *ngIf="isLoading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
   <div (click)="goBack()" class="back">
     <fa-icon [icon]="faArrowLeft"></fa-icon>
   </div>
@@ -14,15 +17,12 @@
     [lazyLoad]="training?.banner.url"
     alt=""
   />
-  <div class="loadbanner" *ngIf="!training?.banner.url">
-    <mat-spinner></mat-spinner>
-  </div>
 
   <h1 class="detail__title">{{ training?.title }}</h1>
   <p>{{ training?.description }}</p>
 
-  <h1 style="margin-top: 50px;">Orientador:</h1>
   <div class="advisor-detail">
+    <h1 style="margin-top: 50px;">Orientador:</h1>
     <img
       [defaultImage]="training?.advisor.avatar.lowQ"
       [lazyLoad]="training?.advisor.avatar.url"

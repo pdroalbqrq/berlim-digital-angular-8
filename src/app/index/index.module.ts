@@ -9,11 +9,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 
 import { GeneralModule } from '../utils/general/general.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   imports: [
-    CommonModule, IndexRoutingModule, GeneralModule
+    CommonModule, IndexRoutingModule, GeneralModule, MatIconModule
   ],
   declarations: [IndexComponent, RegisterComponent, LoginComponent],
   providers: [

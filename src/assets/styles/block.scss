@@ -196,16 +196,20 @@ textarea.input {
   }
 }
 
-.btn {
-  border: 0px;
-  padding: 10px 30px;
-  margin: 20px 0px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
-  background: #0290aa;
-  font-weight: bold;
+button[mat-raised-button]{
+  padding: 0px 50px;
 }
+
+// .btn {
+//   border: 0px;
+//   padding: 10px 30px;
+//   margin: 20px 0px;
+//   font-size: 18px;
+//   cursor: pointer;
+//   border-radius: 5px;
+//   background: #0290aa;
+//   font-weight: bold;
+// }
 
 .link-form {
   margin: 5px !important;

@@ -97,48 +97,28 @@ export class LoginService {
 
   }
 
-  login(user) {
+  login(user): Observable<any> {
 
-    this.loadingService.changeLoading(true)
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}auth/user`, user).subscribe(result => {
-      this.loadingService.changeLoading(false);
-      console.log(result);
+    return this.http.post<any>(`${this.url}auth/user`, user).pipe(map(result => {
       localStorage.setItem('token', result.token);
       this.loggedIn.next(true)
       this.userService.changeUser(result.user);
-      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
       this.router.navigate(['/']);
-    }, (error => {
-      {
-        console.log(error);
-        this.snackBar.open(`${error.error.error}`, 'Confirmar', this.config)
-        this.loadingService.changeLoading(false)
-      }
+      return result;
     }))
-
   }
 
-  adminLogin(user) {
+  adminLogin(user): Observable<any> {
 
-    this.loadingService.changeLoading(true)
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}auth/admin`, user).subscribe(result => {
+    return this.http.post<any>(`${this.url}auth/admin`, user).pipe(map(result => {
       localStorage.setItem('token', result.token);
       this.adminLoggedIn.next(true)
       this.userService.changeUser(result.user);
-      this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar', this.config)
-      this.loadingService.changeLoading(false);
       this.router.navigate(['/admin']);
-      console.log(result);
-    }, (error => {
-      {
-        console.log(error);
-        this.snackBar.open(`${error.error.error}`, 'Confirmar', this.config)
-        this.loadingService.changeLoading(false)
-      }
-    }))
-
+      return result;
+    }));
   }
 
   async logout(rota: string) {

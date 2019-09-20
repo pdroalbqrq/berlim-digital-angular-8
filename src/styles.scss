@@ -2,3 +2,17 @@
 @import "assets/styles/main.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+mat-form-field {
+  width: 95%;
+  max-width: 400px !important;
+}
+
+mat-hint {
+  width: 100%;
+  .ng-star-inserted {
+    padding: 0px !important;
+  }
+}
+.mat-form-field-subscript-wrapper {
+  padding: 0 !important;
+}

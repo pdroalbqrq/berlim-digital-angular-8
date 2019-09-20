@@ -1,19 +1,20 @@
-span{
+span {
   font-style: italic;
   font-weight: bold;
   margin-top: 0px;
   padding-top: 0px;
   font-size: 12px;
-
 }
 
-div{
-  color:red;
+div {
+  color: red;
   padding: 0px 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .material-icons{
-    font-size: 20px!important;
+  .material-icons {
+    font-size: 20px !important;
+    padding:0px!important;
+    margin:0px!important;
   }
 }

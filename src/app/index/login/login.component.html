@@ -1,36 +1,47 @@
 <div class="container" [defaultImage]="defaultImage" [lazyLoad]="image">
   <div class="form__container">
     <form [formGroup]="form" (ngSubmit)="loginSubmit()">
-      <div class="input__wrapper">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
         <input
-          class="input"
-          type="text"
+          matInput
           formControlName="email"
-          placeholder="E-mail"
+          placeholder="ex: berlim@digital.com"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUser"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('email')" label="E-mail">
-      </app-error-msg>
+        <mat-icon matSuffix>account_circle</mat-icon>
 
-      <div class="input__wrapper">
+        <mat-hint>
+          <app-error-msg [control]="form.get('email')" label="E-mail">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
         <input
-          class="input"
-          type="password"
+          matInput
+          placeholder="Digite sua senha"
           formControlName="password"
-          placeholder="Senha"
+          [type]="hide ? 'password' : 'text'"
         />
-        <div class="icon__input">
-          <fa-icon [icon]="faUserLock"></fa-icon>
-        </div>
-      </div>
-      <app-error-msg [control]="form.get('password')" label="Senha">
-      </app-error-msg>
 
-      <button [disabled]="!form.valid" class="btn btn__submit" type="submit">
-        <span>Enviar </span>
+        <mat-icon
+          mat-icon-button
+          matSuffix
+          style="cursor: pointer"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          >{{ hide ? "visibility_off" : "visibility" }}</mat-icon
+        >
+        <mat-hint>
+          <app-error-msg [control]="form.get('password')" label="Senha">
+          </app-error-msg>
+        </mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Enviar
       </button>
     </form>
     <p [routerLink]="['/cadastro']" class="link-form">
