@@ -9,7 +9,8 @@ import { MiniatureComponent } from './miniature/miniature.component';
 
 import { DetailComponent } from './detail/detail.component';
 
-import { GeneralModule } from '../utils/general/general.module'
+import { GeneralModule } from '../utils/general/general.module';
+import { CartComponent } from './cart/cart.component'
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { GeneralModule } from '../utils/general/general.module'
   ],
   exports: [
   ],
-  declarations: [HomeComponent, TrainingComponent, CoursesComponent, HomepageComponent, MiniatureComponent, DetailComponent],
-  providers: [ ]
+  declarations: [HomeComponent, TrainingComponent, CoursesComponent,
+    HomepageComponent, MiniatureComponent, DetailComponent, CartComponent],
+  providers: [],
+  entryComponents: [CartComponent]
 })
 export class HomeModule { }

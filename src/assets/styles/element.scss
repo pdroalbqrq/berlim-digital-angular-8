@@ -63,48 +63,7 @@
 .miniature__title {
   font-weight: bold;
   color: white;
+  opacity: 0;
+  transition: 0.2s;
+
 }
-
-// .btn__submit {
-//   border-radius: 4px;
-//   background-color: #0090aa;
-//   border: none;
-//   color: black;
-//   text-align: center;
-//   font-size: 20px;
-//   padding: 1px 10px 4px 10px;
-//   width: 150px;
-//   transition: all 0.5s;
-//   cursor: pointer;
-//   margin: 5px;
-
-//   span {
-//     cursor: pointer;
-//     display: inline-block;
-//     position: relative;
-//     transition: 0.5s;
-//   }
-
-//   & span::after {
-//     content: "\00bb";
-//     position: absolute;
-//     opacity: 0;
-//     top: 0;
-//     right: -20px;
-//     transition: 0.5s;
-//   }
-
-//   &:hover span {
-//     padding-right: 20px;
-//   }
-
-//   &:hover span::after {
-//     opacity: 1;
-//     right: 0;
-//   }
-// }
-
-// .btn__submit:disabled {
-//   background: rgb(131, 131, 131);
-//   cursor: default;
-// }

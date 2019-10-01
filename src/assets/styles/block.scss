@@ -44,94 +44,10 @@ app-error-msg {
   flex-wrap: wrap;
   &:hover {
     transform: scale(1.1);
+    .miniature__title {
+      opacity: 1;
+    }
   }
-}
-
-.input {
-  width: 95%;
-  max-width: 300px;
-  margin: 5px 0;
-  padding: 8px 10px 4px 5px;
-  border-radius: 5px;
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  font-size: 18px;
-  outline: none;
-
-  border: 2px solid #0290aa;
-  border-left: 0px;
-}
-.icon__input {
-  min-width: 40px;
-  background: transparent;
-  border: 2px solid #0290aa;
-  transition: 0.2s;
-  border-right: 0px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-  padding: 8.5px 5px;
-  fa-icon {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-}
-.icon__input--advisor {
-  min-width: 40px;
-  background: transparent;
-  transition: 0.2s;
-  fa-icon {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-}
-textarea.input {
-  width: 95%;
-  max-width: 300px;
-  margin: 5px 0;
-  padding: 5.5px 10px 4px 5px;
-  font-family: "Source Sans Pro", sans-serif;
-  border-radius: 5px;
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  font-size: 18px;
-  outline: none;
-  border: 2px solid #0290aa;
-  border-left: 0px;
-}
-.icon__input--textarea {
-  min-width: 40px;
-  background: transparent;
-  height: 60px;
-  padding: 10px 5px;
-  border: 2px solid #0290aa;
-  transition: 0.2s;
-  border-right: 0px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-  fa-icon {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-}
-.input__wrapper--textarea {
-  & textarea.input:focus ~ .icon__input--textarea {
-    background: #0290aa;
-  }
-}
-
-.input__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  flex-direction: row-reverse;
-  & .input:focus ~ .icon__input {
-    background: #0290aa;
-  }
-}
-
-.input__wrapper * {
-  box-sizing: border-box;
 }
 
 .roundedImage {
@@ -263,5 +179,26 @@ app-miniature {
   align-items: center;
   .ps-content {
     flex-direction: row !important;
+  }
+}
+
+.cart {
+  cursor: pointer;
+  padding: 10px;
+  background: rgb(0, 0, 0);
+  color: white;
+  z-index: 9999;
+  position: fixed;
+  right: 5px;
+  top: 55px;
+  border-radius: 5px;
+  .cart-quantity {
+    position: absolute;
+    left: -5px;
+    bottom: -10px;
+    border-radius: 5px;
+    padding:4px;
+
+    background: #0090aa;
   }
 }

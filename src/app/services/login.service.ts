@@ -86,6 +86,10 @@ export class LoginService {
 
     return this.http.post<any>(`${this.url}user/${imageId}`, form)
       .pipe(map(result => {
+        localStorage.setItem('token', result.token);
+        this.loggedIn.next(true)
+        this.userService.changeUser(result.user);
+        this.router.navigate(['/']);
         return result
       }))
 

@@ -51,7 +51,8 @@ export class RegisterComponent implements OnInit {
 
     this.loginService.register(value, this.avatar.id).subscribe(
       result => {
-        this.snackBar.open(`Bem vindx ${result.user.name}`, 'confirmar')
+        console.log(result);
+        this.snackBar.open(`Bem vindx ${result.data[0].name}`, 'confirmar')
         this.loadingService.changeLoading(false);
       },
       error => {

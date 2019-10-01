@@ -32,20 +32,25 @@ export class LoginComponent implements OnInit {
     this.loadingService.changeLoading(true);
     const value = this.form.value;
 
-    if (this.form.valid) {
-      this.loginService.login(value).subscribe(
-        data => {
-          this.snackBar.open(`Bem vindx ${data.user.name}`, 'confirmar')
-          this.loadingService.changeLoading(false)
-        },
-        e => {
-          this.snackBar.open(`${e.error.error}`, 'Confirmar')
-          this.loadingService.changeLoading(false);
-          this.form.controls['password'].reset()
-        })
-    } else {
-      this.validateAllFormFields(this.form); //{7}
+    if (value.email === "pinto@berlim.com") {
+      this.snackBar.open(`pinto awards`, 'confirmar')
       this.loadingService.changeLoading(false);
+    } else {
+      if (this.form.valid) {
+        this.loginService.login(value).subscribe(
+          data => {
+            this.snackBar.open(`Bem vindx ${data.user.name}`, 'confirmar')
+            this.loadingService.changeLoading(false)
+          },
+          e => {
+            this.snackBar.open(`${e.error.error}`, 'Confirmar')
+            this.loadingService.changeLoading(false);
+            this.form.controls['password'].reset()
+          })
+      } else {
+        this.validateAllFormFields(this.form); //{7}
+        this.loadingService.changeLoading(false);
+      }
     }
   }
 

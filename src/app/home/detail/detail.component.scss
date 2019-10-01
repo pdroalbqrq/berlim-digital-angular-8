@@ -52,5 +52,9 @@ p {
   padding: 10px;
   background: black;
   cursor: pointer;
+  vertical-align: middle;
   color: white;
+  mat-icon {
+    vertical-align: middle;
+  }
 }

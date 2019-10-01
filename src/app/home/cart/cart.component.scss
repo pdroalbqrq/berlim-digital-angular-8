@@ -1,0 +1,31 @@
+.table-cart {
+  max-width: 1000px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.table-cart {
+  td.mat-cell,
+  th.mat-header-cell,
+  td.mat-footer-cell {
+    text-align: center;
+  }
+}
+
+.btn-wrapper {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  button {
+    margin: 0 5px;
+  }
+}
+
+.cart-container {
+  width: 100%;
+  position: relative;
+  height: calc(100vh - 50px);
+  background: black;
+}

@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { LoadingService } from './../../services/loading.service';
 import { TrainingService } from './../../services/training.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -23,14 +24,14 @@ export class DetailComponent implements OnInit {
   defaultImage = 'https://berlim-digital.s3.amazonaws.com/1568741797151-low-quality-bg.png';
   image = 'https://berlim-digital.s3.us-east-2.amazonaws.com/1568741797151-bg.png';
 
-  constructor(private loadingService: LoadingService, private router: Router, private route: ActivatedRoute, private trainingService: TrainingService, private titleService: Title) { }
+  constructor(private cartService: CartService, private router: Router, private route: ActivatedRoute, private trainingService: TrainingService, private titleService: Title) { }
 
   ngOnInit() {
     this.isLoading$.next(true);
     this.trainingService.getTraining(parseInt(this.route.snapshot.paramMap.get('id')))
       .subscribe(
         data => {
-          this.training = data
+          this.training = data;
           this.titleService.setTitle(data.title + ' - Berlim Digital');
         },
         error => {
@@ -43,6 +44,10 @@ export class DetailComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['treinamentos'])
+  }
+
+  teste() {
+    this.cartService.sendMessage('teste');
   }
 
 }
