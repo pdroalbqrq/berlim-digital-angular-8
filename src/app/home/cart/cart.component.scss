@@ -12,6 +12,10 @@
   }
 }
 
+table[mat-table]{
+  box-shadow: unset!important;
+}
+
 .btn-wrapper {
   width: 95%;
   display: flex;
@@ -24,8 +28,8 @@
 }
 
 .cart-container {
-  width: 100%;
-  position: relative;
-  height: calc(100vh - 50px);
-  background: black;
+  // width: 100%;
+  // position: relative;
+  // height: calc(100vh - 50px);
+  // // background: black;
 }

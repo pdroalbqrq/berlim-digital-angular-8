@@ -18,6 +18,7 @@ export class DetailComponent implements OnInit {
 
   faArrowLeft = faArrowLeft;
   training: Training;
+  items = [];
   config;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -47,7 +48,8 @@ export class DetailComponent implements OnInit {
   }
 
   teste() {
-    this.cartService.sendMessage('teste');
+
+    this.cartService.sendMessage({ product: this.training, quantity: 1 });
   }
 
 }

@@ -31,11 +31,11 @@ const homeRoutes: Routes = [
       {
         path: 'treinamentos/**',
         component: TrainingComponent,
-      },
-      {
-        path: 'carrinho',
-        component: CartComponent,
       }
+      // {
+      //   path: 'carrinho',
+      //   component: CartComponent,
+      // }
     ]
   },
 ];
