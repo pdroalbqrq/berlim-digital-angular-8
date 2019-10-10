@@ -18,9 +18,12 @@ img {
 }
 
 .advisor-detail {
+  border: 2px solid black;
+
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   h1 {
     font-weight: bold;
     font-size: 24px;
@@ -57,4 +60,8 @@ p {
   mat-icon {
     vertical-align: middle;
   }
+}
+
+button{
+  margin: 50px 0;
 }

@@ -62,6 +62,10 @@ export class HomeComponent implements OnInit {
       maxWidth: 700,
       data: JSON.parse(localStorage.getItem('item'))
     })
+
+    dialogRef.beforeClose().subscribe(data => {
+      this.items = JSON.parse(localStorage.getItem('item')) ? JSON.parse(localStorage.getItem('item')) : [];
+    })
   };
 
   prepareRoute(outlet: RouterOutlet) { }

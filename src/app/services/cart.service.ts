@@ -12,11 +12,11 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  sendMessage(item: Item) {
+  sendMessage(item: Item): void {
     this.subject.next(item);
   }
 
-  clearMessages() {
+  clearMessages(): void {
     this.subject.next();
   }
 

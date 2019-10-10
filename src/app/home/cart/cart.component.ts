@@ -1,6 +1,11 @@
 import { CartService } from './../../services/cart.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import Item from 'src/app/models/item-model';
+import { ActivatedRoute } from '@angular/router';
+import { TrainingService } from 'src/app/services/training.service';
+import Training from 'src/app/models/training-model';
+import { Subscription } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cart',
@@ -10,9 +15,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CartComponent implements OnInit {
 
   items = [];
-  displayedColumns = ['id', 'title', 'photo', 'quantity', 'total']
+  displayedColumns = ['id', 'title', 'photo', 'quantity', 'total', 'remove']
 
-  constructor(private cartService: CartService,
+  constructor(private cartService: CartService, public dialogRef: MatDialogRef<CartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
@@ -37,7 +42,8 @@ export class CartComponent implements OnInit {
           this.data.splice(index, 1);
           localStorage.setItem('item', JSON.stringify(this.data))
           this.items = JSON.parse(localStorage.getItem('item'))
-
+          // delete this.items[index];
+          // this.items[index] = {};
         }
       }
     }

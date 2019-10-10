@@ -1,8 +1,8 @@
 <perfect-scrollbar
   class="container"
-  [defaultImage]="defaultImage"
-  [lazyLoad]="image"
-  [config]="config"
+  defaultImage="{{ defaultImage }}"
+  lazyLoad="{{ image }}"
+  config="{{ config }}"
 >
   <div class="loading-detail" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
@@ -13,26 +13,26 @@
 
   <img
     *ngIf="training?.banner.lowQualityUrl"
-    [defaultImage]="training?.banner.lowQualityUrl"
-    [lazyLoad]="training?.banner.url"
+    defaultImage="{{ training?.banner.lowQualityUrl }}"
+    lazyLoad="{{ training?.banner.url }}"
     alt=""
   />
 
   <h1 class="detail__title">{{ training?.title }}</h1>
   <p>{{ training?.description }}</p>
 
-  <div class="advisor-detail">
-    <h1 style="margin-top: 50px;">Orientador:</h1>
+  <div style="margin-top: 50px;" class="advisor-detail">
+    <h1>Orientador:</h1>
     <img
-      [defaultImage]="training?.advisor.avatar.lowQ"
-      [lazyLoad]="training?.advisor.avatar.url"
+      defaultImage="{{ training?.advisor.avatar.lowQualityUrl }}"
+      lazyLoad="{{ training?.advisor.avatar.url }}"
       alt=""
     />
     <h1>{{ training?.advisor.name }}</h1>
+    <p>{{ training?.advisor.description }}</p>
   </div>
-  <p>{{ training?.advisor.description }}</p>
 
-  <button mat-raised-button (click)="teste()">
+  <button color="accent" mat-raised-button (click)="teste()">
     Adicionar ao Carrinho
   </button>
 </perfect-scrollbar>
