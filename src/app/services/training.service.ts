@@ -46,8 +46,5 @@ export class TrainingService {
   }
 
 
-  teste() {
 
-    return this.http.post<any>(`${this.url}training/pagseguro`, { email: 'pdroalbqrq@gmail.com', token: '72543F4EAB734B59B09E5862573B755A' })
-  }
 }

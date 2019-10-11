@@ -10,7 +10,8 @@ import { MiniatureComponent } from './miniature/miniature.component';
 import { DetailComponent } from './detail/detail.component';
 
 import { GeneralModule } from '../utils/general/general.module';
-import { CartComponent } from './cart/cart.component'
+import { CartComponent } from './cart/cart.component';
+import { AcquisitionFormComponent } from './acquisition-form/acquisition-form.component'
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { CartComponent } from './cart/cart.component'
   exports: [
   ],
   declarations: [HomeComponent, TrainingComponent, CoursesComponent,
-    HomepageComponent, MiniatureComponent, DetailComponent, CartComponent],
+    HomepageComponent, MiniatureComponent, DetailComponent, CartComponent, AcquisitionFormComponent],
   providers: [],
   entryComponents: [CartComponent]
 })

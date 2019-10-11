@@ -1,7 +1,7 @@
 import { CartService } from './../../services/cart.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import Item from 'src/app/models/item-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TrainingService } from 'src/app/services/training.service';
 import Training from 'src/app/models/training-model';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   displayedColumns = ['id', 'title', 'photo', 'quantity', 'total', 'remove']
 
   constructor(private cartService: CartService, public dialogRef: MatDialogRef<CartComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
 
   }
 
@@ -73,5 +73,8 @@ export class CartComponent implements OnInit {
     localStorage.setItem('item', JSON.stringify(this.items))
   }
 
-
+  continueAcquisition() {
+    this.dialogRef.close();
+    this.router.navigate(['/finalizar-compra']);
+  }
 }

@@ -1,0 +1,14 @@
+<perfect-scrollbar class="container" config="{{ config }}">
+  <div style="padding:20px 0">
+    Preencha os campos para finalizar a compra
+
+    <div style="padding:20px 0">
+      <h1 *ngFor="let item of items">{{ item.product.title }}</h1>
+    </div>
+
+    <div style="padding:20px 0" *ngFor="let p of payments">
+      <span *ngIf="!payments">{{ p.name }}</span>
+      <span *ngIf="payments">CARREGADO</span>
+    </div>
+  </div>
+</perfect-scrollbar>

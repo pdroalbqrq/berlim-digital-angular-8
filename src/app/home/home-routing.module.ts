@@ -1,3 +1,4 @@
+import { AcquisitionFormComponent } from './acquisition-form/acquisition-form.component';
 import { DetailComponent } from './detail/detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -5,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { TrainingComponent } from './training/training.component';
-import { CartComponent } from './cart/cart.component';
 
 const homeRoutes: Routes = [
   {
@@ -31,6 +31,10 @@ const homeRoutes: Routes = [
       {
         path: 'treinamentos/**',
         component: TrainingComponent,
+      },
+      {
+        path: 'finalizar-compra',
+        component: AcquisitionFormComponent,
       }
       // {
       //   path: 'carrinho',

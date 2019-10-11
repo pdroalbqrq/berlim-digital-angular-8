@@ -10,7 +10,7 @@ export class CartService {
 
   private subject = new Subject<any>();
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   sendMessage(item: Item): void {
     this.subject.next(item);
