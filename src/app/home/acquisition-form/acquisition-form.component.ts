@@ -16,7 +16,9 @@ export class AcquisitionFormComponent implements OnInit {
   isLinear = false;
   items = [];
   load = true;
+  values = '';
   firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   constructor(private pagseguroService: PagseguroService, private formBuilder: FormBuilder,
     private variableGlobal: VariableGlobalService, private loadingService: LoadingService) { }
@@ -26,10 +28,49 @@ export class AcquisitionFormComponent implements OnInit {
     this.firstFormGroup = this.formBuilder.group({
       method: ['CARTÃO DE CRÉDITO'],
     });
+    this.secondFormGroup = this.formBuilder.group({
+      cardNumber: [null, Validators.required],
+    });
 
     this.items = JSON.parse(localStorage.getItem('item'));
     this.loadJavascriptPagseguro();
 
+  }
+
+
+  getTotalCost() {
+    return this.items.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
+  }
+
+  firstFormGroupSubmit() {
+    console.log(this.firstFormGroup.value.method)
+  }
+  keyPress(e) {
+    e.target.value;
+
+    if (e.target.value.length >= 6) {
+      PagSeguroDirectPayment.getBrand({
+        cardBin: e.target.value,
+        success: function (response) {
+
+          let brandImg = response.brand.name;
+          $('.bandeiraCartao').html("<img src=https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/" + brandImg + ".png>");
+
+        },
+        error: function (response) {
+          console.log(response);
+        },
+        complete: function (response) {
+          //tratamento comum para todas chamadas
+        }
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.items = []
   }
 
   loadJavascriptPagseguro() {
@@ -55,6 +96,7 @@ export class AcquisitionFormComponent implements OnInit {
             amount: this.getTotalCost(),
             success: function (response) {
               console.log(response);
+              $('.payments-load').remove();
 
               $.each(response.paymentMethods.CREDIT_CARD.options, function (i, obj) {
                 $('.creditCard').append("<img src=https://stc.pagseguro.uol.com.br./" + obj.images.MEDIUM.path + ">");
@@ -80,20 +122,6 @@ export class AcquisitionFormComponent implements OnInit {
       this.variableGlobal.setStatusScript(true);
     }
 
-  }
-
-  getTotalCost() {
-    return this.items.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
-  }
-
-  firstFormGroupSubmit() {
-    console.log(this.firstFormGroup.value.method)
-  }
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    this.items = []
   }
 
 }

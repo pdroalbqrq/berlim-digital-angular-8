@@ -1,21 +1,29 @@
 <perfect-scrollbar class="container" config="{{ config }}">
   <mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" (ngSubmit)="firstFormGroupSubmit()">
-        <ng-template matStepLabel>Forma de Pagamento</ng-template>
+      <mat-spinner style="margin:0 auto" *ngIf="load"></mat-spinner>
+      <ng-template matStepLabel>Forma de Pagamento</ng-template>
+      <form
+        [formGroup]="firstFormGroup"
+        (ngSubmit)="firstFormGroupSubmit()"
+        *ngIf="!load"
+      >
         <div style="padding:20px 0;width:100%">
           Escolha o método de pagamento
-
-          <div class="payments" *ngIf="!load">
+          <div class="payments">
             <mat-radio-group style="width:100%;" formControlName="method">
               <div>
                 <mat-radio-button value="CARTÃO DE CRÉDITO">
-                  <div class="creditCard"></div>
+                  <div class="creditCard">
+                    <mat-spinner class="payments-load"></mat-spinner>
+                  </div>
                 </mat-radio-button>
               </div>
               <div>
                 <mat-radio-button value="BOLETO">
-                  <div class="boleto"></div>
+                  <div class="boleto">
+                    <mat-spinner class="payments-load"></mat-spinner>
+                  </div>
                 </mat-radio-button>
               </div>
             </mat-radio-group>
@@ -29,19 +37,20 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template
-          matStepLabel
-          >{{ firstFormGroup.value.method }}</ng-template
-        >
+      <form [formGroup]="secondFormGroup" (ngSubmit)="secondFormGroupSubmit()">
+        <ng-template matStepLabel>{{
+          firstFormGroup.value.method
+        }}</ng-template>
         <mat-form-field>
           <input
+            (keyup)="keyPress($event)"
             matInput
-            placeholder="Address"
-            formControlName="secondCtrl"
+            placeholder="Número do Cartão"
+            formControlName="cardNumber"
             required
           />
         </mat-form-field>
+        <span class="bandeiraCartao"></span>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
