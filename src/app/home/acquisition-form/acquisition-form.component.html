@@ -1,14 +1,60 @@
 <perfect-scrollbar class="container" config="{{ config }}">
-  <div style="padding:20px 0">
-    Preencha os campos para finalizar a compra
+  <mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" (ngSubmit)="firstFormGroupSubmit()">
+        <ng-template matStepLabel>Forma de Pagamento</ng-template>
+        <div style="padding:20px 0;width:100%">
+          Escolha o método de pagamento
 
-    <div style="padding:20px 0">
-      <h1 *ngFor="let item of items">{{ item.product.title }}</h1>
-    </div>
-
-    <div style="padding:20px 0" *ngFor="let p of payments">
-      <span *ngIf="!payments">{{ p.name }}</span>
-      <span *ngIf="payments">CARREGADO</span>
-    </div>
-  </div>
+          <div class="payments" *ngIf="!load">
+            <mat-radio-group style="width:100%;" formControlName="method">
+              <div>
+                <mat-radio-button value="CARTÃO DE CRÉDITO">
+                  <div class="creditCard"></div>
+                </mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="BOLETO">
+                  <div class="boleto"></div>
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div>
+          <button type="submit" mat-raised-button color="accent" matStepperNext>
+            Próximo
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template
+          matStepLabel
+          >{{ firstFormGroup.value.method }}</ng-template
+        >
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Address"
+            formControlName="secondCtrl"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </perfect-scrollbar>

@@ -1,0 +1,24 @@
+.payments {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.creditCard,
+.boleto {
+  width: 99%;
+  max-width: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.boleto {
+  justify-content: center;
+}

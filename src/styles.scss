@@ -16,3 +16,27 @@ mat-hint {
 .mat-form-field-subscript-wrapper {
   padding: 0 !important;
 }
+
+.mat-horizontal-stepper-header-container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+mat-horizontal-stepper {
+  width: 100% !important;
+  max-width: 1200px !important;
+}
+
+.mat-radio-label {
+  // display: flex;
+  // flex-direction: column-reverse;
+}
+
+.mat-radio-group{
+  display: flex!important;
+  align-items: baseline!important;
+  // align-content: baseline;
+  justify-content: center!important;
+  flex-wrap: wrap;
+  width: 100%;
+}

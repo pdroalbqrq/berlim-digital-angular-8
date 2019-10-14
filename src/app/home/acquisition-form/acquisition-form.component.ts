@@ -2,6 +2,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { PagseguroService } from 'src/app/services/pagseguro.service';
 import { VariableGlobalService } from 'src/app/services/variable-global.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 declare let PagSeguroDirectPayment: any;
 
@@ -12,17 +13,23 @@ declare let PagSeguroDirectPayment: any;
 })
 export class AcquisitionFormComponent implements OnInit {
 
+  isLinear = false;
   items = [];
   load = true;
-  public payments = [];
+  firstFormGroup: FormGroup;
 
-  constructor(private pagseguroService: PagseguroService, private variableGlobal: VariableGlobalService, private loadingService: LoadingService) { }
+  constructor(private pagseguroService: PagseguroService, private formBuilder: FormBuilder,
+    private variableGlobal: VariableGlobalService, private loadingService: LoadingService) { }
 
   ngOnInit() {
-    this.items = JSON.parse(localStorage.getItem('item'));
-    console.log(this.items);
 
+    this.firstFormGroup = this.formBuilder.group({
+      method: ['CARTÃO DE CRÉDITO'],
+    });
+
+    this.items = JSON.parse(localStorage.getItem('item'));
     this.loadJavascriptPagseguro();
+
   }
 
   loadJavascriptPagseguro() {
@@ -41,8 +48,29 @@ export class AcquisitionFormComponent implements OnInit {
       this.pagseguroService.startSession().subscribe(
         data => {
           PagSeguroDirectPayment.setSessionId(data.session.id[0])
+          this.load = false;
+          console.log(data);
 
-          this.loadPaymentMethods();
+          PagSeguroDirectPayment.getPaymentMethods({
+            amount: this.getTotalCost(),
+            success: function (response) {
+              console.log(response);
+
+              $.each(response.paymentMethods.CREDIT_CARD.options, function (i, obj) {
+                $('.creditCard').append("<img src=https://stc.pagseguro.uol.com.br./" + obj.images.MEDIUM.path + ">");
+              })
+              $.each(response.paymentMethods.BOLETO.options, function (i, obj) {
+                $('.boleto').append("<div><img src=https://stc.pagseguro.uol.com.br./" + obj.images.MEDIUM.path + ">" + "<h1>" + obj.displayName + "</h1>" + "</div>");
+              })
+
+            },
+            error: function (response) {
+              return response
+            },
+            complete: function (response) {
+            }
+          });
+
         },
         e => {
           console.log(e);
@@ -58,20 +86,8 @@ export class AcquisitionFormComponent implements OnInit {
     return this.items.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
   }
 
-  loadPaymentMethods() {
-
-    PagSeguroDirectPayment.getPaymentMethods({
-      amount: 1,
-      success: function (response) {
-        console.log(response)
-      },
-      error: function (response) {
-        console.log(response)
-      },
-      complete: function (response) {
-      }
-    })
-
+  firstFormGroupSubmit() {
+    console.log(this.firstFormGroup.value.method)
   }
 
   ngOnDestroy(): void {
