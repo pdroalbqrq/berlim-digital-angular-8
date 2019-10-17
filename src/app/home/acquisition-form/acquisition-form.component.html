@@ -18,30 +18,35 @@
         <mat-form-field>
           <input matInput placeholder="E-mail" formControlName="email" />
         </mat-form-field>
-        <div class="address__cep-street">
+        <div formGroupName="adress">
+          <div class="address__cep-street">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="CEP"
+                (blur)="postalCodeValue()"
+                formControlName="postalCode"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Rua" formControlName="street" />
+            </mat-form-field>
+          </div>
           <mat-form-field>
-            <input
-              matInput
-              placeholder="CEP"
-              (blur)="cepvalue()"
-              formControlName="cep"
-            />
+            <input matInput placeholder="Bairro" formControlName="district" />
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Rua" formControlName="logradouro" />
-          </mat-form-field>
+          <div class="address__city-uf">
+            <mat-form-field>
+              <input matInput placeholder="Cidade" formControlName="city" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="UF" formControlName="state" />
+            </mat-form-field>
+          </div>
         </div>
-        <mat-form-field>
-          <input matInput placeholder="Bairro" formControlName="bairro" />
-        </mat-form-field>
-        <div class="address__city-uf">
-          <mat-form-field>
-            <input matInput placeholder="Cidade" formControlName="localidade" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="UF" formControlName="uf" />
-          </mat-form-field>
-        </div>
+        <button type="submit" mat-raised-button color="accent" matStepperNext>
+          Próximo
+        </button>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">

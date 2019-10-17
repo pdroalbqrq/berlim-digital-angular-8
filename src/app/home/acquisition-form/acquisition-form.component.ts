@@ -45,11 +45,13 @@ export class AcquisitionFormComponent implements OnInit {
     this.userInfo = this.formBuilder.group({
       name: [null],
       email: [null],
-      cep: [null],
-      logradouro: [null],
-      bairro: [null],
-      localidade: [null],
-      uf: [null]
+      adress: this.formBuilder.group({
+        postalCode: [null],
+        street: [null],
+        district: [null],
+        city: [null],
+        state: [null]
+      })
     })
 
     this.userService.currentUser.subscribe(
@@ -71,13 +73,16 @@ export class AcquisitionFormComponent implements OnInit {
       method: ['creditCard'],
     });
 
+
     this.createYearArray();
     this.items = JSON.parse(localStorage.getItem('item'));
     console.log(this.items);
     this.loadJavascriptPagseguro();
 
   }
-
+  userInfoSubmit() {
+    console.log(this.userInfo.value);
+  }
 
   createYearArray() {
 
@@ -118,14 +123,24 @@ export class AcquisitionFormComponent implements OnInit {
 
   }
 
-  cepvalue() {
-    let cep = this.userInfo.get('cep').value;
+  postalCodeValue() {
+    let postalCode = this.userInfo.get('adress.postalCode').value;
 
-    if (cep != null && cep !== '') {
-      if (cep.length > 5)
-        this.queryCep.queryCep(cep).subscribe(data => {
+    if (postalCode != null && postalCode !== '') {
+      if (postalCode.length > 5)
+        this.queryCep.queryCep(postalCode).subscribe((data: any) => {
 
-          this.userInfo.patchValue(data);
+          const { cep, logradouro, bairro, localidade, uf } = data;
+
+          this.userInfo.patchValue({
+            adress: {
+              postalCode: cep,
+              street: logradouro,
+              district: bairro,
+              city: localidade,
+              state: uf
+            }
+          });
           console.log(data);
         })
     }

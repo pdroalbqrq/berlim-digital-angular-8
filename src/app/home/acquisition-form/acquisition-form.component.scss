@@ -69,7 +69,12 @@ mat-radio-group > div {
   justify-content: center;
   flex-direction: column;
 }
-
+div[formGroupName="adress"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 .address__cep-street {
   display: flex;
   padding: 0;
