@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import User from '../models/user-model';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  user:User;
-  private userIsLogged= new BehaviorSubject<User>(this.user);
-  currentUser = this.userIsLogged.asObservable();
+  private user = new Subject<User>();
 
   constructor() { }
 
-  changeUser(user:User){
-    this.userIsLogged.next(user);
+  changeUser(user: User): void {
+    this.user.next(user);
   }
 
+  clearUser(): void {
+    this.user.next();
+  }
+
+  get currentUser(): Subject<User> {
+    return this.user;
+  }
 }

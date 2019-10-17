@@ -76,7 +76,7 @@ export class LoginService {
 
   getUser(id) {
 
-    return this.http.get<User>(`${this.url}user/${id}`).subscribe(result => {
+    return this.http.get<User>(`/v1/user/${id}`).subscribe(result => {
       this.userService.changeUser(result);
     });
 
@@ -84,7 +84,7 @@ export class LoginService {
 
   register(form, imageId) {
 
-    return this.http.post<any>(`${this.url}user/${imageId}`, form)
+    return this.http.post<any>(`/v1/user/${imageId}`, form)
       .pipe(map(result => {
         localStorage.setItem('token', result.token);
         this.loggedIn.next(true)
@@ -99,7 +99,7 @@ export class LoginService {
   login(user): Observable<any> {
 
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}auth/user`, user).pipe(map(result => {
+    return this.http.post<any>(`/v1/auth/user`, user).pipe(map(result => {
       localStorage.setItem('token', result.token);
       this.loggedIn.next(true)
       this.userService.changeUser(result.user);
@@ -111,7 +111,7 @@ export class LoginService {
   adminLogin(user): Observable<any> {
 
     user.password = window.btoa(user.password);
-    return this.http.post<any>(`${this.url}auth/admin`, user).pipe(map(result => {
+    return this.http.post<any>(`/v1/auth/admin`, user).pipe(map(result => {
       localStorage.setItem('token', result.token);
       this.adminLoggedIn.next(true)
       this.userService.changeUser(result.user);
@@ -130,14 +130,14 @@ export class LoginService {
 
   tokenValidate(user: any) {
 
-    return this.http.get<any>(`${this.url}token`, user);
+    return this.http.get<any>(`/v1/token`, user);
 
 
   }
 
   tokenAdminValidate(user: any) {
 
-    return this.http.get<any>(`${this.url}token/admin`, user);
+    return this.http.get<any>(`/v1/token/admin`, user);
 
   }
 

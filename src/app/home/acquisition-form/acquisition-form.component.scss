@@ -3,15 +3,24 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 1200px;
+  h1 {
+    font-weight: bolder;
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
 }
 
 .creditCard,
 .boleto {
   width: 99%;
-  max-width: 300px;
+  max-width: 200px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -25,4 +34,67 @@
 
 .payments-load {
   margin: 20px;
+}
+
+mat-radio-group > div {
+  margin: 0 20px;
+}
+
+.payment-images {
+  width: 100%;
+  max-width: 450px;
+  img {
+    margin: 3px;
+  }
+}
+
+.cardNumberCvv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-form-field {
+    margin: 0 5px;
+  }
+}
+
+.dateExpiration {
+  mat-form-field {
+    margin: 0 5px;
+  }
+}
+
+.form-user-payment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.address__cep-street {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  max-width: 400px;
+  mat-form-field:nth-child(1) {
+    margin: 0 5px 0 0;
+  }
+}
+.address__city-uf {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  max-width: 400px;
+  mat-form-field:nth-child(1) {
+    flex-grow: 1;
+    margin: 0 5px 0 0;
+  }
+  mat-form-field:nth-child(2) {
+    width: 50px;
+  }
 }

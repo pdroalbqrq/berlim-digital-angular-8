@@ -1,42 +1,95 @@
+import { QueryCepService } from './../../services/query-cep.service';
+import User from 'src/app/models/user-model';
+import { UserService } from './../../services/user.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { PagseguroService } from 'src/app/services/pagseguro.service';
 import { VariableGlobalService } from 'src/app/services/variable-global.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 declare let PagSeguroDirectPayment: any;
 
 @Component({
   selector: 'app-acquisition-form',
   templateUrl: './acquisition-form.component.html',
-  styleUrls: ['./acquisition-form.component.scss']
+  styleUrls: ['./acquisition-form.component.scss'],
 })
 export class AcquisitionFormComponent implements OnInit {
 
+  user: User;
   isLinear = false;
   items = [];
   load = true;
+  cards;
+  boleto;
+  sessionId: string;
+  brandImg: string;
   values = '';
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  userInfo: FormGroup;
+
+  month: any[] = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+  ];
+  year: number[] = [];
 
   constructor(private pagseguroService: PagseguroService, private formBuilder: FormBuilder,
-    private variableGlobal: VariableGlobalService, private loadingService: LoadingService) { }
+    private userService: UserService, private queryCep: QueryCepService) {
+
+  }
 
   ngOnInit() {
+    this.userInfo = this.formBuilder.group({
+      name: [null],
+      email: [null],
+      cep: [null],
+      logradouro: [null],
+      bairro: [null],
+      localidade: [null],
+      uf: [null]
+    })
 
-    this.firstFormGroup = this.formBuilder.group({
-      method: ['CARTÃO DE CRÉDITO'],
-    });
+    this.userService.currentUser.subscribe(
+      user => {
+        this.user = user
+        this.userInfo.patchValue(user);
+        console.log(user);
+      });
+
     this.secondFormGroup = this.formBuilder.group({
+      sessionId: [null],
+      amount: [null],
       cardNumber: [null, Validators.required],
+      cardCvv: [null, Validators.required],
+      cardExpirationMonth: [null],
+      cardExpirationYear: [null],
+    });
+    this.firstFormGroup = this.formBuilder.group({
+      method: ['creditCard'],
     });
 
+    this.createYearArray();
     this.items = JSON.parse(localStorage.getItem('item'));
+    console.log(this.items);
     this.loadJavascriptPagseguro();
 
   }
 
+
+  createYearArray() {
+
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    let currentLimitYear = currentYear + 25;
+    let i = 0;
+
+    for (let index = currentYear; index < currentLimitYear; index++) {
+      this.year.push(currentYear + i++);
+    }
+  }
 
   getTotalCost() {
     return this.items.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
@@ -45,25 +98,36 @@ export class AcquisitionFormComponent implements OnInit {
   firstFormGroupSubmit() {
     console.log(this.firstFormGroup.value.method)
   }
+
+  secondFormGroupSubmit() {
+    const { cardNumber, cardCvv, cardExpirationMonth, cardExpirationYear } = this.secondFormGroup.value
+
+    this.pagseguroService.getCardToken({ sessionId: this.sessionId, amount: this.getTotalCost(), cardBrand: this.brandImg, cardNumber, cardCvv, cardExpirationMonth, cardExpirationYear }).subscribe(data => {
+
+    })
+
+  }
   keyPress(e) {
-    e.target.value;
-
     if (e.target.value.length >= 6) {
-      PagSeguroDirectPayment.getBrand({
-        cardBin: e.target.value,
-        success: function (response) {
+      this.pagseguroService.getCardFlag(e.target.value, this.sessionId).subscribe(data => {
+        this.brandImg = `https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${data.bin.brand.name}.png`;
+      }, e => this.brandImg = '')
+    } else {
+      this.brandImg = ''
+    }
 
-          let brandImg = response.brand.name;
-          $('.bandeiraCartao').html("<img src=https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/" + brandImg + ".png>");
+  }
 
-        },
-        error: function (response) {
-          console.log(response);
-        },
-        complete: function (response) {
-          //tratamento comum para todas chamadas
-        }
-      });
+  cepvalue() {
+    let cep = this.userInfo.get('cep').value;
+
+    if (cep != null && cep !== '') {
+      if (cep.length > 5)
+        this.queryCep.queryCep(cep).subscribe(data => {
+
+          this.userInfo.patchValue(data);
+          console.log(data);
+        })
     }
   }
 
@@ -75,53 +139,40 @@ export class AcquisitionFormComponent implements OnInit {
 
   loadJavascriptPagseguro() {
 
-    if (!this.variableGlobal.getStatusScript()) {
+    new Promise((resolve) => {
 
-      new Promise((resolve) => {
+      let script: HTMLScriptElement = document.createElement('script');
+      script.addEventListener('load', r => resolve());
+      script.src = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+      document.head.appendChild(script);
 
-        let script: HTMLScriptElement = document.createElement('script');
-        script.addEventListener('load', r => resolve());
-        script.src = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
-        document.head.appendChild(script);
+    });
 
-      });
+    this.pagseguroService.startSession().subscribe(
+      async data => {
+        this.sessionId = data.session.id[0];
+        await PagSeguroDirectPayment.setSessionId(data.session.id[0])
+        this.secondFormGroup.value.sessionId = data.session.id[0];
+        this.load = false;
 
-      this.pagseguroService.startSession().subscribe(
-        data => {
-          PagSeguroDirectPayment.setSessionId(data.session.id[0])
-          this.load = false;
-          console.log(data);
+        await this.pagseguroService.getPaymentMethods(this.getTotalCost(), data.session.id[0]).subscribe(data => {
+          this.cards = data.paymentMethods.CREDIT_CARD.options;
+          this.boleto = data.paymentMethods.BOLETO.options;
+        });
 
-          PagSeguroDirectPayment.getPaymentMethods({
-            amount: this.getTotalCost(),
-            success: function (response) {
-              console.log(response);
-              $('.payments-load').remove();
-
-              $.each(response.paymentMethods.CREDIT_CARD.options, function (i, obj) {
-                $('.creditCard').append("<img src=https://stc.pagseguro.uol.com.br./" + obj.images.MEDIUM.path + ">");
-              })
-              $.each(response.paymentMethods.BOLETO.options, function (i, obj) {
-                $('.boleto').append("<div><img src=https://stc.pagseguro.uol.com.br./" + obj.images.MEDIUM.path + ">" + "<h1>" + obj.displayName + "</h1>" + "</div>");
-              })
-
-            },
-            error: function (response) {
-              return response
-            },
-            complete: function (response) {
-            }
-          });
-
-        },
-        e => {
-          console.log(e);
-        },
-        () => { }
-      );
-      this.variableGlobal.setStatusScript(true);
-    }
+      },
+      e => {
+        console.log(e);
+      },
+    );
 
   }
+
+  generateArray(obj) {
+    return Object.keys(obj).map((key) => {
+      return obj[key]
+    });
+  }
+
 
 }

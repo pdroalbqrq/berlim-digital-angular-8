@@ -12,15 +12,15 @@ export class FileService {
   constructor(private http: HttpClient) { }
 
   postImage(image) {
-    return this.http.post<Image>(`${this.url}image/`, image);
+    return this.http.post<Image>(`/v1/image/`, image);
   }
   getImages() {
-    return this.http.get<Image[]>(`${this.url}image`);
+    return this.http.get<Image[]>(`/v1/image`);
   }
   getProfileImages() {
-    return this.http.get<Image[]>(`${this.url}image/profile`);
+    return this.http.get<Image[]>(`/v1/image/profile`);
   }
   getImage(id: number) {
-    return this.http.get<Image>(`${this.url}image/${id}`);
+    return this.http.get<Image>(`/v1/image/${id}`);
   }
 }

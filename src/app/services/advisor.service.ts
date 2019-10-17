@@ -12,12 +12,12 @@ export class AdvisorService {
   constructor(private http: HttpClient) { }
 
   postAdvisor(imageId, advisor) {
-    return this.http.post<Advisor>(`${this.url}advisor/${imageId}`, advisor);
+    return this.http.post<Advisor>(`/v1/advisor/${imageId}`, advisor);
   }
   getAdvisors() {
-    return this.http.get<Advisor[]>(`${this.url}advisor`);
+    return this.http.get<Advisor[]>(`/v1/advisor`);
   }
   getImage(id: number) {
-    return this.http.get<Advisor>(`${this.url}advisor/${id}`);
+    return this.http.get<Advisor>(`/v1/advisor/${id}`);
   }
 }

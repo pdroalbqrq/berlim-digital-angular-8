@@ -1,28 +1,95 @@
 <perfect-scrollbar class="container" config="{{ config }}">
   <mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step>
       <mat-spinner style="margin:0 auto" *ngIf="load"></mat-spinner>
-      <ng-template matStepLabel>Forma de Pagamento</ng-template>
+      <ng-template matStepLabel>Seus Dados</ng-template>
+      <form
+        class="form-user-payment"
+        [formGroup]="userInfo"
+        (ngSubmit)="userInfoSubmit()"
+      >
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nome completo"
+            formControlName="name"
+          /> </mat-form-field
+        ><br />
+        <mat-form-field>
+          <input matInput placeholder="E-mail" formControlName="email" />
+        </mat-form-field>
+        <div class="address__cep-street">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="CEP"
+              (blur)="cepvalue()"
+              formControlName="cep"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Rua" formControlName="logradouro" />
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+          <input matInput placeholder="Bairro" formControlName="bairro" />
+        </mat-form-field>
+        <div class="address__city-uf">
+          <mat-form-field>
+            <input matInput placeholder="Cidade" formControlName="localidade" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="UF" formControlName="uf" />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <ng-template matStepLabel>Forma de pagamento</ng-template>
       <form
         [formGroup]="firstFormGroup"
         (ngSubmit)="firstFormGroupSubmit()"
         *ngIf="!load"
       >
         <div style="padding:20px 0;width:100%">
-          Escolha o método de pagamento
           <div class="payments">
+            <div class="payment-images" *ngIf="cards">
+              <img
+                *ngFor="let objArrayElement of generateArray(cards)"
+                src="https://stc.pagseguro.uol.com.br./{{
+                  objArrayElement.images.SMALL.path
+                }}"
+                [title]="objArrayElement.name"
+                alt=""
+              />
+              <img
+                *ngIf="boleto"
+                src="https://stc.pagseguro.uol.com.br./{{
+                  boleto.BOLETO.images.SMALL.path
+                }}"
+                [title]="boleto.BOLETO.name"
+                alt=""
+              />
+              <!-- <mat-spinner class="payments-load"></mat-spinner> -->
+            </div>
+            <br />
+            <h1>Escolha o método de pagamento:</h1>
             <mat-radio-group style="width:100%;" formControlName="method">
               <div>
-                <mat-radio-button value="CARTÃO DE CRÉDITO">
+                <mat-radio-button value="creditCard">
                   <div class="creditCard">
-                    <mat-spinner class="payments-load"></mat-spinner>
+                    <h2>
+                      Cartão de Crédito
+                    </h2>
                   </div>
                 </mat-radio-button>
               </div>
               <div>
-                <mat-radio-button value="BOLETO">
+                <mat-radio-button value="boleto">
                   <div class="boleto">
-                    <mat-spinner class="payments-load"></mat-spinner>
+                    <h2>
+                      Boleto
+                    </h2>
                   </div>
                 </mat-radio-button>
               </div>
@@ -36,33 +103,76 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup" (ngSubmit)="secondFormGroupSubmit()">
-        <ng-template matStepLabel>{{
-          firstFormGroup.value.method
-        }}</ng-template>
-        <mat-form-field>
-          <input
-            (keyup)="keyPress($event)"
-            matInput
-            placeholder="Número do Cartão"
-            formControlName="cardNumber"
-            required
-          />
-        </mat-form-field>
-        <span class="bandeiraCartao"></span>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Finalizar</ng-template>
+
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <form
+          *ngIf="firstFormGroup.value.method == 'creditCard'"
+          [formGroup]="secondFormGroup"
+          (ngSubmit)="secondFormGroupSubmit()"
+        >
+          <div class="cardNumberCvv">
+            <mat-form-field appearance="outline" id="cardNumberInput">
+              <mat-label>Número do cartão</mat-label>
+              <input
+                (keyup)="keyPress($event)"
+                matInput
+                placeholder="0000000000000"
+                formControlName="cardNumber"
+                required
+              />
+              <img
+                matSuffix
+                id="cardImgBrand"
+                class="input-icon"
+                src="{{ brandImg }}"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              style="width: 100px"
+              id="cardCvvInput"
+            >
+              <mat-label>CVV</mat-label>
+              <input
+                matInput
+                required
+                placeholder="123"
+                formControlName="cardCvv"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="dateExpiration">
+            <mat-form-field style="width:100px">
+              <mat-label>Mês</mat-label>
+              <mat-select formControlName="cardExpirationMonth">
+                <mat-option *ngFor="let m of month" [value]="m">
+                  {{ m }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width:100px">
+              <mat-label>Ano</mat-label>
+              <mat-select formControlName="cardExpirationYear">
+                <mat-option *ngFor="let y of year" [value]="y">
+                  {{ y }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button type="submit">CONFIRMAR</button>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Confirmar</button>
+          </div>
+        </form>
+        <div *ngIf="firstFormGroup.value.method == 'boleto'">
+          <h1>BOLETO</h1>
+        </div>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
