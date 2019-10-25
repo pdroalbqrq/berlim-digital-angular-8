@@ -17,11 +17,10 @@ export class HomepageComponent implements OnInit {
 
   user: User;
 
-  constructor(private userService: UserService, private titleService: Title) { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle('Berlim Digital');
-    this.userService.currentUser.subscribe(user => this.user = user);
   }
 
 }

@@ -129,16 +129,11 @@ export class LoginService {
   }
 
   tokenValidate(user: any) {
-
     return this.http.get<any>(`/v1/token`, user);
-
-
   }
 
   tokenAdminValidate(user: any) {
-
     return this.http.get<any>(`/v1/token/admin`, user);
-
   }
 
 

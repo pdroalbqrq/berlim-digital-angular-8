@@ -1,13 +1,13 @@
+
+import { Subscription } from 'rxjs';
 import { QueryCepService } from './../../services/query-cep.service';
 import User from 'src/app/models/user-model';
-import { UserService } from './../../services/user.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { PagseguroService } from 'src/app/services/pagseguro.service';
-import { VariableGlobalService } from 'src/app/services/variable-global.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 declare let PagSeguroDirectPayment: any;
 
@@ -22,14 +22,14 @@ export class AcquisitionFormComponent implements OnInit {
   isLinear = false;
   items = [];
   load = true;
-  cards;
-  boleto;
+  cards: any;
+  boleto: any;
   sessionId: string;
   brandImg: string;
-  values = '';
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   userInfo: FormGroup;
+  userSubscribed: Subscription;
 
   month: any[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
@@ -37,11 +37,19 @@ export class AcquisitionFormComponent implements OnInit {
   year: number[] = [];
 
   constructor(private pagseguroService: PagseguroService, private formBuilder: FormBuilder,
-    private userService: UserService, private queryCep: QueryCepService) {
-
+    private userService: UserService, private queryCep: QueryCepService, public route: ActivatedRoute) {
   }
 
+
   ngOnInit() {
+    this.userSubscribed = this.userService.currentUser.subscribe(
+      user => {
+        this.user = user
+        this.userInfo.patchValue(user);
+        console.log('teste dentro')
+      }
+    );
+
     this.userInfo = this.formBuilder.group({
       name: [null],
       email: [null],
@@ -53,13 +61,6 @@ export class AcquisitionFormComponent implements OnInit {
         state: [null]
       })
     })
-
-    this.userService.currentUser.subscribe(
-      user => {
-        this.user = user
-        this.userInfo.patchValue(user);
-        console.log(user);
-      });
 
     this.secondFormGroup = this.formBuilder.group({
       sessionId: [null],
@@ -79,7 +80,14 @@ export class AcquisitionFormComponent implements OnInit {
     console.log(this.items);
     this.loadJavascriptPagseguro();
 
+    this.getUser();
+
   }
+
+  getUser() {
+
+  }
+
   userInfoSubmit() {
     console.log(this.userInfo.value);
   }
@@ -97,6 +105,7 @@ export class AcquisitionFormComponent implements OnInit {
   }
 
   getTotalCost() {
+
     return this.items.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
   }
 
@@ -108,13 +117,14 @@ export class AcquisitionFormComponent implements OnInit {
     const { cardNumber, cardCvv, cardExpirationMonth, cardExpirationYear } = this.secondFormGroup.value
 
     this.pagseguroService.getCardToken({ sessionId: this.sessionId, amount: this.getTotalCost(), cardBrand: this.brandImg, cardNumber, cardCvv, cardExpirationMonth, cardExpirationYear }).subscribe(data => {
-
+      console.log(data);
     })
 
   }
   keyPress(e) {
     if (e.target.value.length >= 6) {
       this.pagseguroService.getCardFlag(e.target.value, this.sessionId).subscribe(data => {
+
         this.brandImg = `https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${data.bin.brand.name}.png`;
       }, e => this.brandImg = '')
     } else {
@@ -147,8 +157,7 @@ export class AcquisitionFormComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.userSubscribed.unsubscribe();
     this.items = []
   }
 
@@ -165,6 +174,7 @@ export class AcquisitionFormComponent implements OnInit {
 
     this.pagseguroService.startSession().subscribe(
       async data => {
+
         this.sessionId = data.session.id[0];
         await PagSeguroDirectPayment.setSessionId(data.session.id[0])
         this.secondFormGroup.value.sessionId = data.session.id[0];
@@ -177,6 +187,7 @@ export class AcquisitionFormComponent implements OnInit {
 
       },
       e => {
+        this.load = false;
         console.log(e);
       },
     );
@@ -184,6 +195,7 @@ export class AcquisitionFormComponent implements OnInit {
   }
 
   generateArray(obj) {
+
     return Object.keys(obj).map((key) => {
       return obj[key]
     });

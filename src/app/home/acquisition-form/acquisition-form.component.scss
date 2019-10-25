@@ -103,3 +103,14 @@ div[formGroupName="adress"] {
     width: 50px;
   }
 }
+
+.load-pagseguro {
+  position: fixed;
+  background:white;
+  width: 100%;
+  height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}

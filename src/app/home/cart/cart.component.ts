@@ -1,11 +1,8 @@
-import { CartService } from './../../services/cart.service';
+import { UserService } from './../../services/user.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import Item from 'src/app/models/item-model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TrainingService } from 'src/app/services/training.service';
-import Training from 'src/app/models/training-model';
-import { Subscription } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import User from 'src/app/models/user-model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
@@ -15,17 +12,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CartComponent implements OnInit {
 
   items = [];
+  user: User;
   displayedColumns = ['id', 'title', 'photo', 'quantity', 'total', 'remove']
 
-  constructor(private cartService: CartService, public dialogRef: MatDialogRef<CartComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
-
-  }
+  constructor(private userService: UserService, public dialogRef: MatDialogRef<CartComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-
     this.items = this.data;
-
+    this.userService.currentUser.pipe(map(() => console.log(window.history.state)));
   }
 
   descreaseQuantity(item) {
@@ -38,12 +33,9 @@ export class CartComponent implements OnInit {
         this.items[index].quantity -= 1;
         this.itemStorage()
         if (this.items[index].quantity <= 0) {
-
           this.data.splice(index, 1);
           localStorage.setItem('item', JSON.stringify(this.data))
           this.items = JSON.parse(localStorage.getItem('item'))
-          // delete this.items[index];
-          // this.items[index] = {};
         }
       }
     }
@@ -73,8 +65,4 @@ export class CartComponent implements OnInit {
     localStorage.setItem('item', JSON.stringify(this.items))
   }
 
-  continueAcquisition() {
-    this.dialogRef.close();
-    this.router.navigate(['/finalizar-compra']);
-  }
 }

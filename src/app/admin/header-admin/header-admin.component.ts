@@ -17,8 +17,9 @@ export class HeaderAdminComponent implements OnInit {
   constructor(private loginService: LoginService, private userService: UserService, private loadingService: LoadingService, private fileService: FileService) { }
 
   ngOnInit() {
-
-    this.userService.currentUser.subscribe(user => this.user = user);
+    this.userService.currentUser.subscribe(user => {
+      this.user = user;
+    });
     this.loadingService.currentLoading.subscribe(loading => this.loading = loading);
   }
 

@@ -2,7 +2,7 @@ import { CartService } from './../services/cart.service';
 import { CartComponent } from './cart/cart.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import Item from '../models/item-model';
 
 @Component({
@@ -20,12 +20,11 @@ export class HomeComponent implements OnInit {
   items: Item[] = JSON.parse(localStorage.getItem('item')) ? JSON.parse(localStorage.getItem('item')) : [];
 
 
-  constructor(public router: Router, private dialog: MatDialog, private cartService: CartService) { }
+  constructor(private router: Router, private dialog: MatDialog, private cartService: CartService) { }
 
 
   ngOnInit(): void {
     this.cartService.getMessage.subscribe(data => {
-
 
       if (this.items.length > 0) {
 

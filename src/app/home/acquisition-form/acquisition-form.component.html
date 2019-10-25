@@ -1,7 +1,9 @@
+<div class="load-pagseguro" *ngIf="load">
+  <mat-spinner color="accent" ></mat-spinner>
+</div>
 <perfect-scrollbar class="container" config="{{ config }}">
   <mat-horizontal-stepper #stepper>
     <mat-step>
-      <mat-spinner style="margin:0 auto" *ngIf="load"></mat-spinner>
       <ng-template matStepLabel>Seus Dados</ng-template>
       <form
         class="form-user-payment"
@@ -49,7 +51,7 @@
         </button>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
+    <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Forma de pagamento</ng-template>
       <form
         [formGroup]="firstFormGroup"
@@ -108,7 +110,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step [stepControl]="secondFormGroup">
       <ng-template matStepLabel>Finalizar</ng-template>
 
       <div>

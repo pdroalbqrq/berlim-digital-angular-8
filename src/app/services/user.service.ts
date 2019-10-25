@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import User from '../models/user-model';
 import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserService {
     this.user.next();
   }
 
-  get currentUser(): Subject<User> {
-    return this.user;
+  get currentUser(): Subject<any> {
+    return this.user
   }
 }
